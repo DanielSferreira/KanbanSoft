@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KanbanSoft.Migrations
 {
-    public partial class first : Migration
+    public partial class ajustes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,16 +11,17 @@ namespace KanbanSoft.Migrations
                 name: "users",
                 columns: table => new
                 {
-                    Key = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    nome = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    nick = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                    pass = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    nick = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    role = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.Key);
+                    table.PrimaryKey("PK_users", x => x.Id);
                 });
         }
 

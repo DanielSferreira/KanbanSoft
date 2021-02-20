@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace KanbanSoft.EF
+namespace KanbanSoft.Models
 {
     public class AppDB : DbContext
     {
