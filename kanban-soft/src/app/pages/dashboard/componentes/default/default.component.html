@@ -1,0 +1,22 @@
+<po-container p-no-border="true" p-no-shadow="true" class="po-lg-6">
+    <po-widget class="po-lg-4 po-mb-1" p-title="Ver Tarefas em Andamentos"></po-widget>
+    <po-widget class="po-lg-4 po-mb-1" p-title="Ver Espaço de Tarefas"></po-widget>
+    <po-widget class="po-lg-4 po-mb-1" p-title="Historico de Tarefas"></po-widget>
+    <po-widget class="po-lg-4 po-mb-1" p-title="Meus Dados"></po-widget>
+    <po-widget class="po-lg-4 po-mb-1" p-title="Meus Dados"></po-widget>
+</po-container>
+<po-container p-height="500" class="po-lg-6">
+    <po-list-view p-property-title="name" [p-items]="[
+        { name: 'Atividade 1', data: '25/02/21' },
+        { name: 'Atividade 2', data: '25/03/21' },
+        { name: 'Atividade 3', data: '25/04/21' },
+        { name: 'Atividade 4', data: '25/05/21' }
+    ]">
+        <ng-template p-list-view-content-template let-item>
+            <div class="po-row">
+                <po-info class="po-md-12" p-label="Data para entrega" [p-value]="item.data"></po-info>
+            </div>
+        </ng-template>
+    </po-list-view>
+
+</po-container>

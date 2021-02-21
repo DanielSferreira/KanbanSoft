@@ -11,5 +11,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  contactEmail ="";
+  abrir(a){
+    console.log(a);
+    
+  }
 
 }
