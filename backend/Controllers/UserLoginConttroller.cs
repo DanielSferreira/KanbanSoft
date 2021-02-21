@@ -8,69 +8,53 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using KanbanSoft.Services;
 
 namespace KanbanSoft.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserLoginController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private AppDB context;
+        private LoginService loginService;
         private readonly IOptions<Configs> config;
-        public UserLoginController(IOptions<Configs> _config, AppDB _context)
+        public LoginController(IOptions<Configs> _config, AppDB _context)
         {
-            this.config = _config;
+            config = _config;
             context = _context;
+            loginService = new LoginService(config, context);
         }
 
         [HttpGet]
-        public string Get(User user)
+        public ActionResult Get()
         {
-            var a = context.users.Where(p => p.email == user.email).Count();
-            if (a > 0)
-                return "null";
-            else
-            {
-                var result = context.users.Add(new User()
-                {
-                    pass = user.pass,
-                    email = user.email,
-                    name = user.name,
-                    nick = user.nick
-                });
-                context.SaveChanges();
-
-                return "Confia!" + a.ToString();
-            }
+            return Ok();
         }
 
-        [HttpGet("logar/{usuario}/{senha}")]
-        public object login(string usuario, string senha)
+        [HttpPost]
+        public ActionResult Login([FromBody] User a)
         {
-            var user_autenticado = context.users
-               .Where(p => p.email == usuario)
-               .AsEnumerable()
-               .Where(p => Crypt.Decrypt(senha, p.pass) == true)
-               .Select(p => new User
-               {
-                   nick = p.nick,
-                   email = p.email,
-                   name = p.name
-               })
-               .First();
+            LoginHelper user = loginService.Login(a.email, a.pass);
             
-            senha = "";
-
-            string tk = GenerateToken.set(user_autenticado, config.Value.JwtKey.ToString());
-
-            return new { 
-                user = user_autenticado.nick,
-                token = tk
-            };
+            if (user.status)
+                return Ok(user);
+            else
+                return BadRequest(user);
         }
-        
+        [HttpPost("Logout")]
+        public ActionResult Logout([FromBody] LoginHelper login)
+        {
+            bool user = loginService.Logout();
+            
+            if (!user)
+                return Ok(login.user+" Deslogado com Sucesso");
+            else
+                return BadRequest("Erro ");
+        }
+
         [HttpGet]
-        [Route("logado")]
+        [Route("DashBoard")]
         [Authorize]
         public string logado() => "BatataDoce";
 
