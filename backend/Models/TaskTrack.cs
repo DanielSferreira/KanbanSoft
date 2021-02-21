@@ -8,9 +8,9 @@ namespace KanbanSoft.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int Id { get; set; }
-        public string IdTask { get; set; }
-        public string IdUser { get; set; }
-        public string TrackDate { get; set; }
-        public string DeliveryDate { get; set; }
+        public int IdTask { get; set; }
+        public int IdUser { get; set; }
+        public System.DateTime TrackDate { get; set; }
+        public System.DateTime DeliveryDate { get; set; }
     }
 }
