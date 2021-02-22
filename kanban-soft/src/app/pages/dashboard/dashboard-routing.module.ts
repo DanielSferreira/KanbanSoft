@@ -5,10 +5,12 @@ import { TasksComponent } from './componentes/tasks/tasks.component';
 import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
-  {path:'',component: DashboardComponent, children:[
-    {path:'',component: DefaultComponent},
-    {path:'tasks',component: TasksComponent},
-  ]}
+  {
+    path: '', component: DashboardComponent, children: [
+      { path: '', component: DefaultComponent },
+      { path: 'tasks', component: TasksComponent },
+    ]
+  }
 ];
 
 @NgModule({

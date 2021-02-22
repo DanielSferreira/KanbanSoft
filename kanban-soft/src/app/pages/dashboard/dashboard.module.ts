@@ -8,12 +8,19 @@ import { DefaultComponent } from './componentes/default/default.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { PoContainerModule, PoModule, PoListViewModule, PoPageModule } from '@po-ui/ng-components';
 import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
-
+import { PoTabsModule } from '@po-ui/ng-components';
+import { TarefasComponent } from './componentes/tarefas/tarefas.component';
+import { PoBreadcrumbModule } from '@po-ui/ng-components';
+import { NewTaskComponent } from './componentes/new-task/new-task.component';
+import { PoFieldModule } from '@po-ui/ng-components';
+import { PoButtonModule } from '@po-ui/ng-components';
 @NgModule({
   declarations: [
     TasksComponent,
     DashboardComponent,
     DefaultComponent,
+    TarefasComponent,
+    NewTaskComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +30,11 @@ import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
     PoTemplatesModule,
     PoListViewModule,
     PoPageModule,
+    PoTabsModule,
     DashboardRoutingModule,
+    PoBreadcrumbModule,
+    PoFieldModule,
+    PoButtonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

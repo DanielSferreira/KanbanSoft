@@ -1,11 +1,10 @@
 <po-container p-no-border="true" p-no-shadow="true" class="po-lg-6">
-    <po-widget class="po-lg-4 po-mb-1" p-title="Ver Tarefas em Andamentos"></po-widget>
-    <po-widget class="po-lg-4 po-mb-1" p-title="Ver Espaço de Tarefas"></po-widget>
-    <po-widget class="po-lg-4 po-mb-1" p-title="Historico de Tarefas"></po-widget>
-    <po-widget class="po-lg-4 po-mb-1" p-title="Meus Dados"></po-widget>
-    <po-widget class="po-lg-4 po-mb-1" p-title="Meus Dados"></po-widget>
+    <po-widget p-height="100" routerLink="tasks" class="po-lg-4 po-sm-4 " p-title="Quadros de Tarefas"></po-widget>
+    <po-widget p-height="100" class="po-lg-4 po-mb-2 po-sm-4" p-title="Minhas Tarefas"></po-widget>
+    <po-widget p-height="100" class="po-lg-4 po-mb-2 po-sm-4" p-title="Fórum de dúvidas"></po-widget>
+    <po-widget p-height="400" class="po-lg-12 po-mb-2" p-title="Meus Dados"></po-widget>
 </po-container>
-<po-container p-height="500" class="po-lg-6">
+<po-container p-height="540" class="po-lg-6">
     <po-list-view p-property-title="name" [p-items]="[
         { name: 'Atividade 1', data: '25/02/21' },
         { name: 'Atividade 2', data: '25/03/21' },
