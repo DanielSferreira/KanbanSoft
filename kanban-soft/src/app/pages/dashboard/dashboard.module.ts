@@ -14,13 +14,17 @@ import { PoBreadcrumbModule } from '@po-ui/ng-components';
 import { NewTaskComponent } from './componentes/new-task/new-task.component';
 import { PoFieldModule } from '@po-ui/ng-components';
 import { PoButtonModule } from '@po-ui/ng-components';
+import { MyTasksComponent } from './componentes/my-tasks/my-tasks.component';
+import { QuestionsComponent } from './componentes/questions/questions.component';
 @NgModule({
   declarations: [
     TasksComponent,
     DashboardComponent,
     DefaultComponent,
     TarefasComponent,
-    NewTaskComponent
+    NewTaskComponent,
+    MyTasksComponent,
+    QuestionsComponent
   ],
   imports: [
     CommonModule,
