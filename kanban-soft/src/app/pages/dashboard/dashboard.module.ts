@@ -16,6 +16,8 @@ import { PoFieldModule } from '@po-ui/ng-components';
 import { PoButtonModule } from '@po-ui/ng-components';
 import { MyTasksComponent } from './componentes/my-tasks/my-tasks.component';
 import { QuestionsComponent } from './componentes/questions/questions.component';
+import { PoTableModule } from '@po-ui/ng-components';
+import { ColunaGradeComponent } from './shared/coluna-grade/coluna-grade.component';
 @NgModule({
   declarations: [
     TasksComponent,
@@ -24,7 +26,8 @@ import { QuestionsComponent } from './componentes/questions/questions.component'
     TarefasComponent,
     NewTaskComponent,
     MyTasksComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    ColunaGradeComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +42,8 @@ import { QuestionsComponent } from './componentes/questions/questions.component'
     PoBreadcrumbModule,
     PoFieldModule,
     PoButtonModule,
+    PoTableModule,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

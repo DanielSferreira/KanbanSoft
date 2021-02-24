@@ -11,5 +11,18 @@ export class MyTasksComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  Table: any = [
+    {
+      "Nome Completo": "Dan",
+      email: "daniel6991ferreira@gmail.com"
+    },
+    {
+      "Nome Completo": "Ju",
+      email: "ju@gmail.com"
+    },
+    {
+      "Nome Completo": "fa",
+      email: "faniel6971ferreira@gmail.com"
+    }
+  ];
 }
