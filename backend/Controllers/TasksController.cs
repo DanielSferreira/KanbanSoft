@@ -33,6 +33,7 @@ namespace KanbanSoft.Controllers
         [HttpPut]
         public ActionResult<Task> Put([FromBody] Task data)
         {
+            System.Console.WriteLine($"{data.Name} e {data.Status}");
             Task prevData = tasksManager.GetEntity(data.Id);
             tasksManager.Update(prevData, data);
 

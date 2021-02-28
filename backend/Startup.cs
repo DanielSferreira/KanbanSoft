@@ -64,7 +64,8 @@ namespace KanbanSoft
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "KanbanSoft", Version = "v1" });
             });
             services.AddDbContext<AppDB>(opt => opt
-                .UseMySql(Configuration["MysqlCon"],
+                .UseMySql(
+                    Configuration["MysqlCon"],
                     new MySqlServerVersion(new Version(8, 0, 23))
                 )
             );
@@ -83,6 +84,12 @@ namespace KanbanSoft
 
             app.UseHttpsRedirection();
 
+
+            app.UseCors(option => option
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                        );
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

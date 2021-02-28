@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ConApiService } from 'src/app/services/con-api.service';
+import { ListaEstado } from 'src/interfaces/ListaEstado';
+import { Tasks, TaskTemplate } from 'src/interfaces/TaskTemplate';
 
 @Component({
   selector: 'app-tarefas',
@@ -7,115 +11,111 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TarefasComponent implements OnInit {
 
-  constructor() { }
+  constructor(private a: ConApiService) { }
+  Lista: Observable<Tasks[]>
 
-  algo: obj[] =
-    [{
-      titulo: 'Faxina 1',
-      nome: '',
-      descricao: 'Fazer faxina em casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "todo"
+  fazer: Tasks[]
+  fazendo: Tasks[]
+  concluido: Tasks[]
 
-    }, {
-      titulo: 'Levar o lixo',
-      nome: '',
-      descricao: 'Tirar o lixo de casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "andamento"
-
-    }, {
-      titulo: 'Faxina 2',
-      nome: '',
-      descricao: 'Fazer faxina em casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "todo"
-
-    }, {
-      titulo: 'Faxina 3',
-      nome: '',
-      descricao: 'Fazer faxina em casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "todo"
-
-    }, {
-      titulo: 'Faxina 4',
-      nome: '',
-      descricao: 'Fazer faxina em casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "todo"
-
-    }, {
-      titulo: 'Faxina 5',
-      nome: '',
-      descricao: 'Fazer faxina em casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "todo"
-
-    }, {
-      titulo: 'Faxina 6',
-      nome: '',
-      descricao: 'Fazer faxina em casa',
-      data: '',
-      data_pego: '',
-      data_concluido: '',
-      nivel: 0,
-      status: "concluido"
-
-    }]
-
-  fazer = this.algo.filter(e => e.status === "todo");
-  fazendo = this.algo.filter(e => e.status === "andamento");
-  concluido = this.algo.filter(e => e.status === "concluido");
+  id_user = 4;
+  dataPego = new Date().getUTCDate();
 
   ngOnInit(): void {
+    this.Lista = this.a.GetTasks();
+    this.FilterLista();
   }
 
-  mudar(item: { index: number, novoEstado: string, lista:string }) {
-
+  mudar(item: ListaEstado)
+  {
     if (item.lista === "Para Fazer")
-      this.fazer[item.index].status = item.novoEstado;
+      this._pegarTarefa(item)
     else if (item.lista === "Sendo Feito")
-      this.fazendo[item.index].status = item.novoEstado;
+      this._concluirTarefa(item)
     else if (item.lista === "Já concluido")
-      this.concluido[item.index].status = item.novoEstado;
+      this._corrigirTarefa(item)
 
+    this.FilterLista();
 
-    this.fazer = this.algo.filter(e => e.status === "todo");
-    this.fazendo = this.algo.filter(e => e.status === "andamento");
-    this.concluido = this.algo.filter(e => e.status === "concluido");
+  }
 
+  private _pegarTarefa(item: ListaEstado): void 
+  {
+    let help = this.fazer[item.index]
+    var temTask: TaskTemplate = {
+      id: help.id,
+      idUser: this.id_user,
+      name: help.name,
+      title: help.title,
+      description: help.description,
+      status: item.novoEstado,
+      dateRelease: new Date(),
+      trackDate: new Date(),
+      deliveryDate: new Date(),
+      level: help.level
+    }
+    this.a.PutTasks(temTask).subscribe(res => console.log(res));
+  }
+  private _devolverTarefa(item: ListaEstado): void 
+  {
+    let help = this.fazendo[item.index]
+    var temTask: TaskTemplate = {
+      id: help.id,
+      idUser: this.id_user,
+      name: help.name,
+      title: help.title,
+      description: help.description,
+      status: item.novoEstado,
+      dateRelease: new Date(),
+      trackDate: new Date(),
+      deliveryDate: new Date(),
+      level: help.level
+    }
+    this.a.PutTasks(temTask).subscribe(res => console.log(res));
+  }
+  private _concluirTarefa(item: ListaEstado): void 
+  {
+    let help = this.fazendo[item.index]
+    var temTask: TaskTemplate = {
+      id: help.id,
+      idUser: this.id_user,
+      name: help.name,
+      title: help.title,
+      description: help.description,
+      status: item.novoEstado,
+      dateRelease: new Date(),
+      trackDate: new Date(),
+      deliveryDate: new Date(),
+      level: help.level
+    }
+    this.a.PutTasks(temTask).subscribe(res => console.log(res));
+  }
+  private _corrigirTarefa(item: ListaEstado): void 
+  {
+    let help = this.concluido[item.index]
+    var temTask: TaskTemplate = {
+      id: help.id,
+      idUser: this.id_user,
+      name: help.name,
+      title: help.title,
+      description: help.description,
+      status: item.novoEstado,
+      dateRelease: new Date(),
+      trackDate: new Date(),
+      deliveryDate: new Date(),
+      level: help.level
+    }
+    this.a.PutTasks(temTask).subscribe(res => console.log(res));
+  }
+
+  private FilterLista() {
+    this.Lista.subscribe(lista => {
+      this.fazer = lista.filter(a => a.status == 0)
+      this.fazendo = lista.filter(a => a.status == 1)
+      this.concluido = lista.filter(a => a.status == 2)
+      console.log(this.fazer);
+    });
   }
 }
 
 
-interface obj {
-
-  titulo: string,
-  nome: string,
-  descricao: string,
-  data: string,
-  data_pego: string,
-  data_concluido: string,
-  nivel: 0,
-  status: string
-
-}

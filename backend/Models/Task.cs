@@ -1,18 +1,22 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KanbanSoft.Models
 {
-    public class Task: Model
+    public class Task : Model
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        public string name { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        public int status { get; set; }
-        public string role { get; set; }
+        public int IdUser { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Status { get; set; }
+        public DateTime DateRelease { get; set; }
+        public DateTime TrackDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public int Level { get; set; }
     }
 }

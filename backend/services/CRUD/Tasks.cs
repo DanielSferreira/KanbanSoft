@@ -36,11 +36,15 @@ namespace KanbanSoft.Services
         {
             try
             {
-                prevEt.name = et.name;
-                prevEt.title = et.title;
-                prevEt.description = et.description;
-                prevEt.status = et.status;
-                prevEt.role = et.role;
+                prevEt.Name = et.Name;
+                prevEt.Title = et.Title;
+                prevEt.Description = et.Description;
+                prevEt.Status = et.Status;
+                prevEt.DateRelease = et.DateRelease;
+                prevEt.DeliveryDate = et.DeliveryDate;
+                prevEt.IdUser = et.IdUser;
+                prevEt.TrackDate = et.TrackDate;
+                prevEt.Level = et.Level;
 
                 context.SaveChanges();
                 return true;

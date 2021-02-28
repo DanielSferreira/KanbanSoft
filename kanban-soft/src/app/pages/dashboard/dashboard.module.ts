@@ -1,23 +1,27 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ReactiveFormsModule, FormBuilder } from'@angular/forms';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 import { TasksComponent } from './componentes/tasks/tasks.component';
 import { DashboardComponent } from './dashboard.component';
 import { DefaultComponent } from './componentes/default/default.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { TarefasComponent } from './componentes/tarefas/tarefas.component';
+import { NewTaskComponent } from './componentes/new-task/new-task.component';
+import { MyTasksComponent } from './componentes/my-tasks/my-tasks.component';
+import { QuestionsComponent } from './componentes/questions/questions.component';
+import { ColunaGradeComponent } from './shared/coluna-grade/coluna-grade.component';
+
 import { PoContainerModule, PoModule, PoListViewModule, PoPageModule } from '@po-ui/ng-components';
 import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
 import { PoTabsModule } from '@po-ui/ng-components';
-import { TarefasComponent } from './componentes/tarefas/tarefas.component';
 import { PoBreadcrumbModule } from '@po-ui/ng-components';
-import { NewTaskComponent } from './componentes/new-task/new-task.component';
 import { PoFieldModule } from '@po-ui/ng-components';
 import { PoButtonModule } from '@po-ui/ng-components';
-import { MyTasksComponent } from './componentes/my-tasks/my-tasks.component';
-import { QuestionsComponent } from './componentes/questions/questions.component';
 import { PoTableModule } from '@po-ui/ng-components';
-import { ColunaGradeComponent } from './shared/coluna-grade/coluna-grade.component';
+import { PoTagModule } from '@po-ui/ng-components';
+import { PoModalModule } from '@po-ui/ng-components';
+
 @NgModule({
   declarations: [
     TasksComponent,
@@ -31,18 +35,22 @@ import { ColunaGradeComponent } from './shared/coluna-grade/coluna-grade.compone
   ],
   imports: [
     CommonModule,
+    //FormBuilder,
+    ReactiveFormsModule,
+    PoModule,
     PoContainerModule,
     PoPageLoginModule,
-    PoModule,
     PoTemplatesModule,
     PoListViewModule,
     PoPageModule,
     PoTabsModule,
-    DashboardRoutingModule,
     PoBreadcrumbModule,
     PoFieldModule,
     PoButtonModule,
+    PoTagModule,
     PoTableModule,
+    PoModalModule,
+    DashboardRoutingModule,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

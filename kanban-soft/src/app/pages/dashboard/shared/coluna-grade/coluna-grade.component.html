@@ -1,12 +1,26 @@
 <div class="po-lg-4">
   <span class="po-font-subtitle">{{nome}}</span>
-  <po-list-view p-property-title="titulo" [p-items]="lista">
-    <ng-template p-list-view-content-template let-item>
-      <div class="po-row sizeItem">
-        <span class="po-font-text-large">{{item.descricao}}</span>
-        <div class="po-row">{{item.nome}}</div>
+  <po-list-view p-property-title="title" [p-items]="lista">
+    <ng-template p-list-view-content-template let-item let-ie="index">
+      <po-modal #modal [p-title]=item.title>
+        tem que ter | {{ie  | json}} |
+        {{item.description}} -
+        {{item.date}}
+      </po-modal>
+      <div class="po-row sizeItem" >
+
+        <span class="po-font-text-large span" (click)="modal.open()">
+          Nível: <po-tag [p-color]="'color-0'+item.level" [p-value]="item.level">
+          </po-tag>
+          <div>
+            Ver mais +
+          </div>
+        </span>
+
+        <div class="po-row">{{item.name}}</div>
         <div class="po-row lador">
-          <po-button *ngFor="let i of labels_buttons" p-label={{i.Label}} (click)="pass(item.titulo, i.NovoEstado)"></po-button>
+          <po-button *ngFor="let i of labels_buttons" p-label={{i.Label}} (click)="pass(ie, i.NovoEstado)">
+          </po-button>
         </div>
       </div>
     </ng-template>

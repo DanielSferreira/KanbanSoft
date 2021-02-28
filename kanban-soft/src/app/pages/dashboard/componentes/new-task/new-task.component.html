@@ -1,10 +1,13 @@
-<po-input class="po-md-6" name="Nome" p-label="Titulo"></po-input>
-<po-datepicker class="po-md-3" name="minDate" p-clean p-label="Data para entrega">
-</po-datepicker>
-<po-input class="po-md-3" p-mask="99:99" p-placeholder="10:00" name="Nome" p-label="Titulo"></po-input>
-<po-textarea class="po-lg-12" name="Descrição" p-label="Descrição"></po-textarea>
-<div class="po-lg-10">* todos os itens são necessarios</div>
-<div class="po-lg-2">
-    <po-button class="po-mr-5" p-label="Desfazer" p-type="default"></po-button>
-    <po-button p-label="Salvar" p-type="primary"></po-button>
-</div>
+<form [formGroup]="TasksFormBuilder" (ngSubmit)="onSubmit()">
+
+    <po-input class="po-md-6" name="Nome" p-label="Titulo" p-auto-focus="true"  formControlName="titulo"></po-input>
+    <po-datepicker class="po-md-3" name="minDate" p-clean p-label="Data para entrega" formControlName="data"></po-datepicker>
+    <po-input class="po-md-3" p-placeholder="10:00" name="hota" p-label="Hora Entrega Prevista" formControlName="hora"></po-input>
+    <po-textarea class="po-lg-12" name="Descrição" p-label="Descrição"  formControlName="descricao"></po-textarea>
+    <div class="po-lg-10">* todos os itens são necessarios</div>
+    <div class="po-lg-2">
+        <po-button class="po-mr-5" p-label="Desfazer" p-type="default"></po-button>
+        <po-button p-label="Salvar" p-type="primary" (p-click)='onSubmit()'></po-button>
+    </div>
+
+</form>
