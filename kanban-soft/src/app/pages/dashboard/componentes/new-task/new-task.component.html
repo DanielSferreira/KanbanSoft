@@ -1,13 +1,30 @@
 <form [formGroup]="TasksFormBuilder" (ngSubmit)="onSubmit()">
 
-    <po-input class="po-md-6" name="Nome" p-label="Titulo" p-auto-focus="true"  formControlName="titulo"></po-input>
-    <po-datepicker class="po-md-3" name="minDate" p-clean p-label="Data para entrega" formControlName="data"></po-datepicker>
-    <po-input class="po-md-3" p-placeholder="10:00" name="hota" p-label="Hora Entrega Prevista" formControlName="hora"></po-input>
-    <po-textarea class="po-lg-12" name="Descrição" p-label="Descrição"  formControlName="descricao"></po-textarea>
-    <div class="po-lg-10">* todos os itens são necessarios</div>
-    <div class="po-lg-2">
+    <po-input class="po-md-6" name="Nome" p-label="Titulo" p-auto-focus="true" p-minlength="10" formControlName="titulo"
+        p-required></po-input>
+    <po-datepicker formControlName="data" class="po-md-3" p-required name="minDate" p-clean p-label="Data para entrega"
+        [p-min-date]="date" [p-max-date]="dateLimit">
+    </po-datepicker>
+    <po-select class="po-md-3" p-required name="select" p-label="Horario de Entrega" [p-options]="ListaDeHorario"
+        formControlName="hora">
+    </po-select>
+    <po-select class="po-md-2" p-required name="nicel" p-label="Grau Importância" [p-options]="ListaImportancia"
+        formControlName="nivel">
+    </po-select>
+    <po-textarea p-minlength="20" p-required class="po-lg-10" name="Descrição" p-label="Descrição"
+        formControlName="descricao">
+    </po-textarea>
+    <div class="po-lg-9">* todos os itens são necessarios</div>
+    <div class="po-lg-3">
         <po-button class="po-mr-5" p-label="Desfazer" p-type="default"></po-button>
-        <po-button p-label="Salvar" p-type="primary" (p-click)='onSubmit()'></po-button>
+        <po-button p-label="Salvar" p-type="primary" [p-disabled]="!TasksFormBuilder.valid" (p-click)='onSubmit()'>
+        </po-button>
     </div>
 
 </form>
+
+<po-modal #modal p-title="Atenção, Ocorreu um Erro">
+    <h2 class="po-font-subtitle">Motivo</h2>
+    <h2 class="po-font-text-large" *ngIf="resErro.title !== null">{{resErro.title}}</h2>
+    <h2 class="po-font-text-large" *ngIf="resErro.message !== null">{{resErro.message}}</h2>
+  </po-modal>

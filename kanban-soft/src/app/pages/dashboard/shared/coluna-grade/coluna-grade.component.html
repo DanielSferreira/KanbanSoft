@@ -10,7 +10,7 @@
       <div class="po-row sizeItem" >
 
         <span class="po-font-text-large span" (click)="modal.open()">
-          Nível: <po-tag [p-color]="'color-0'+item.level" [p-value]="item.level">
+          Nível: <po-tag [p-color]="'color-0'+item.level" [p-value]="resolveStatus(item.level)">
           </po-tag>
           <div>
             Ver mais +

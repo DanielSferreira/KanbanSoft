@@ -27,3 +27,9 @@ export interface TaskTrack {
   "trackDate": any,
   "deliveryDate": any
 }
+export interface ErrorModel {
+  statusCode: number;
+  message: string;
+  errors: any;
+  title: string;
+}

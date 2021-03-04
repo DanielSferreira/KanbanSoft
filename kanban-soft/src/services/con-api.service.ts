@@ -21,13 +21,14 @@ export class ConApiService {
   constructor(private http: HttpClient) { }
 
   private configUrl = "https://localhost:5001/";
-
+  //
   public GetTasks() {
     return this.http.get<Tasks[]>(this.configUrl + "Tasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
+  public GetTasksByStatus(stats: number) {
+    return this.http.get<Tasks[]>(this.configUrl + "Tasks/getByStatus/"+stats, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
   public PutTasks(item: TaskTemplate) {
-    console.log(item);
-    console.log({ item });
 
     return this.http.put<Tasks>(this.configUrl + "Tasks/", {
       id: item.id,
@@ -44,15 +45,26 @@ export class ConApiService {
     }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
 
+  public PostTasks(item) {
+    return this.http.post<Tasks>(this.configUrl + "Tasks/", {
+      id: 0,
+      idUser: 0,
+      name: "",
+      title: item.title,
+      dateRelease: item.dateRelease,
+      trackDate: new Date(),
+      deliveryDate: item.deliveryDate,
+      description: item.description,
+      status: item.status,
+      level: item.level
+
+    }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error("Ocorreu um erro");
-      console.error(error.status);
-      console.error(error.error);
-    }
-    return throwError('Something bad happened; please try again later.');
+    console.log("Deu Ruim");
+    
+    return throwError(error);
   }
 }
 

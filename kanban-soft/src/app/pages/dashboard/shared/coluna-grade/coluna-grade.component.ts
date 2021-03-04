@@ -17,6 +17,16 @@ export class ColunaGradeComponent implements OnInit {
   @Input() labels_buttons: any[];
   @Output() newItemEvent = new EventEmitter<ListaEstado>();
 
+  resolveStatus(sts: number): string
+  {
+    if(sts === 2)
+      return "Necessário"
+    else if(sts === 9)
+      return "Importante"
+    else if(sts === 7)
+      return "Urgente"
+  }
+
   ngOnInit(): void {
   }
   pass(index, NovoEstado) {

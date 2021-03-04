@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConApiService } from './services/con-api.service';
+import { ConApiService } from './../services/con-api.service';
 
 @Component({
   selector: 'app-root',

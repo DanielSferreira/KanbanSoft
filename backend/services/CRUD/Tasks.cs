@@ -23,13 +23,26 @@ namespace KanbanSoft.Services
         {
             try
             {
-                context.tasks.Add(et);
-                context.SaveChanges();
-                return true;
+                var tempTask = context.tasks.Select(x=> new {x.Title,x.Status}).FirstOrDefault(x => x.Title == et.Title && (x.Status == 0 || x.Status == 1 ||x.Status == 2));
+
+                if(tempTask is not null)
+                    return false;
+                
+                try
+                {
+                    context.tasks.Add(et);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
             }
             catch (System.Exception)
             {
-                return false;
+
+                throw;
             }
         }
         bool IDataRepository<Task>.Update(Task prevEt, Task et)
