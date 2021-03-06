@@ -1,6 +1,17 @@
 <po-breadcrumb [p-items]="[
-    { label: 'Dashboard', link: '../' },
+    { label: 'Voltar ao Inicio', link: '../' },
     { label: 'Minhas Tarefas', link: 'tasks' }
   ]">
 </po-breadcrumb>
-<po-table [p-items]="Table"> </po-table>
+<!-- <po-grid  [p-row-actions]="rowActions" [p-data]="currencyObj" [p-columns]="columns"> </po-grid> -->
+<po-table [p-items]="currencyObj" [p-striped]="true" [p-columns]="columns">
+  
+  <ng-template p-table-cell-template let-column="abc" let-row="row">
+    <po-modal #modal [p-title]="row.title">
+    {{row.title}}
+    </po-modal>
+      <po-button p-label="Editar"(click)="modal.open()"></po-button>
+      <po-button p-label="Concluir"></po-button>
+      <po-button p-label="Finalizar"></po-button>
+  </ng-template>
+</po-table>

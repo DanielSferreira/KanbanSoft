@@ -32,10 +32,11 @@ namespace KanbanSoft.Services
                 return false;
             }
         }
-        bool IDataRepository<User>.Update(User prevEt, User et)
+        bool IDataRepository<User>.Update(User et)
         {
             try
             {
+                var prevEt = context.users.Single(x => x.Id == et.Id);
                 prevEt.name = et.name;
                 prevEt.nick = et.nick;
                 prevEt.email = et.email;

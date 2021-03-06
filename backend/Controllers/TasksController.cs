@@ -27,22 +27,27 @@ namespace KanbanSoft.Controllers
         [HttpGet("getByStatus/{s}")]
         public IEnumerable<Task> getByStatus(int s)
         {
-            return tasksManager.GetAll().Where(e=>e.Status == s);
+            return tasksManager.GetAll().Where(e => e.Status == s);
+        }
+        [HttpGet("getByUser/{s}")]
+        public IEnumerable<Task> getByUser(int s)
+        {
+            return tasksManager.GetAll().Where(e => e.IdUser == s);
         }
         [HttpPost]
         public ActionResult<Task> Post([FromBody] Task data)
         {
             bool result = tasksManager.Add(data);
-            if(result)
+            if (result)
                 return Ok(data);
             else
-                return BadRequest(new {StatusCode = 401,Message = "Task já Cadastrada"});
+                return BadRequest(new { StatusCode = 401, Message = "Task já Cadastrada" });
         }
         [HttpPut]
         public ActionResult<Task> Put([FromBody] Task data)
         {
             Task prevData = tasksManager.GetEntity(data.Id);
-            tasksManager.Update(prevData, data);
+            tasksManager.Update(data);
 
             return Ok(data);
         }

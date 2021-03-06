@@ -3,19 +3,21 @@
   <po-list-view p-property-title="title" [p-items]="lista">
     <ng-template p-list-view-content-template let-item let-ie="index">
       <po-modal #modal [p-title]=item.title>
-        tem que ter | {{ie  | json}} |
-        {{item.description}} -
-        {{item.date}}
+        <div class="guardModal">
+          <h3>{{item.description}}</h3>
+          <h4><b>Data de Entrega: </b>{{item.dateRelease | date}}</h4>
+        </div>
       </po-modal>
-      <div class="po-row sizeItem" >
+      <div class="po-row">
 
-        <span class="po-font-text-large span" (click)="modal.open()">
-          Nível: <po-tag [p-color]="'color-0'+item.level" [p-value]="resolveStatus(item.level)">
-          </po-tag>
-          <div>
+        <div class="span" (click)="modal.open()">
+          <po-tag [p-color]="'color-0'+item.level" class="po-font-title float" [p-value]="resolveStatus(item.level)"></po-tag>
+          <div class="po-font-text-large" *ngIf="!(item.idUser == 0)">Pessoa: {{item.idUser}}</div>
+          <div class="po-font-text-large">Data Pego: {{item.trackDate | date}}</div>
+          <div class="po-row lador">
             Ver mais +
           </div>
-        </span>
+        </div>
 
         <div class="po-row">{{item.name}}</div>
         <div class="po-row lador">

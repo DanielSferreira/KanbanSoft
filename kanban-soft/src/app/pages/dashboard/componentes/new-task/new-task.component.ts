@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from '@angular/router';
 import { ErrorModel } from 'src/interfaces/TaskTemplate';
 import { ConApiService } from 'src/services/con-api.service';
 import { UtilitiesService } from 'src/services/utilities.service';
@@ -50,10 +49,10 @@ export class NewTaskComponent implements OnInit {
   date = "";
   dateLimit = "";
   TasksFormBuilder: FormGroup;
-  
+
   private CreateForm() {
     this.TasksFormBuilder = this.formBuider.group({
-      titulo: new FormControl('', [Validators.required, Validators.min(15)]),
+      titulo: new FormControl('', [Validators.required, Validators.min(20)]),
       data: new FormControl('', [Validators.required, Validators.min(10)]),
       hora: new FormControl('', [Validators.required]),
       nivel: new FormControl('', [Validators.required]),
@@ -70,14 +69,13 @@ export class NewTaskComponent implements OnInit {
   }
 
   onSubmit() {
-    let datetemp = this.util.DateInFormatUTC(new Date());
     let task =
     {
       title: this.TasksFormBuilder.controls["titulo"].value,
       description: this.TasksFormBuilder.controls["descricao"].value,
       level: this.TasksFormBuilder.controls["nivel"].value,
       status: 0,
-      dateRelease: datetemp,
+      dateRelease: this.util.DateInFormatUTC(new Date()),
       deliveryDate: this.TasksFormBuilder.controls["data"].value + "T" + this.TasksFormBuilder.controls["hora"].value + ":00",
     }
 

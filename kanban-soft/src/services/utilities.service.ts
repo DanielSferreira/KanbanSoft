@@ -8,7 +8,7 @@ export class UtilitiesService {
 
   constructor(
     private router: Router,
-    ) { }
+  ) { }
 
   dateFormat(data: Date): string {
     let day = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
@@ -26,9 +26,8 @@ export class UtilitiesService {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate([uri]));
   }
-  DateInFormatUTC(date: Date)
-  {
- return this.dateFormat(date) + "T" + this.hourFormat(date);
+  DateInFormatUTC(date: Date) {
+    return this.dateFormat(date) + "T" + this.hourFormat(date);
   }
 
 }

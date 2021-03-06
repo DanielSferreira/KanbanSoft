@@ -1,6 +1,6 @@
 <form [formGroup]="TasksFormBuilder" (ngSubmit)="onSubmit()">
 
-    <po-input class="po-md-6" name="Nome" p-label="Titulo" p-auto-focus="true" p-minlength="10" formControlName="titulo"
+    <po-input class="po-md-6" name="Nome" p-label="Titulo" p-auto-focus="true" p-minlength="20" formControlName="titulo"
         p-required></po-input>
     <po-datepicker formControlName="data" class="po-md-3" p-required name="minDate" p-clean p-label="Data para entrega"
         [p-min-date]="date" [p-max-date]="dateLimit">
@@ -11,12 +11,12 @@
     <po-select class="po-md-2" p-required name="nicel" p-label="Grau Importância" [p-options]="ListaImportancia"
         formControlName="nivel">
     </po-select>
-    <po-textarea p-minlength="20" p-required class="po-lg-10" name="Descrição" p-label="Descrição"
+    <po-textarea p-minlength="30" p-required class="po-lg-10" name="Descrição" p-label="Descrição"
         formControlName="descricao">
     </po-textarea>
     <div class="po-lg-9">* todos os itens são necessarios</div>
     <div class="po-lg-3">
-        <po-button class="po-mr-5" p-label="Desfazer" p-type="default"></po-button>
+        <po-button class="po-mr-5" p-label="Desfazer" p-type="default" (p-click)='TasksFormBuilder.reset()'></po-button>
         <po-button p-label="Salvar" p-type="primary" [p-disabled]="!TasksFormBuilder.valid" (p-click)='onSubmit()'>
         </po-button>
     </div>

@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder } from'@angular/forms';
+import { ReactiveFormsModule } from'@angular/forms';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 import { TasksComponent } from './componentes/tasks/tasks.component';
@@ -21,6 +21,7 @@ import { PoButtonModule } from '@po-ui/ng-components';
 import { PoTableModule } from '@po-ui/ng-components';
 import { PoTagModule } from '@po-ui/ng-components';
 import { PoModalModule } from '@po-ui/ng-components';
+import { PoGridModule } from '@po-ui/ng-components';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,6 @@ import { PoModalModule } from '@po-ui/ng-components';
   ],
   imports: [
     CommonModule,
-    //FormBuilder,
     ReactiveFormsModule,
     PoModule,
     PoContainerModule,
@@ -51,6 +51,7 @@ import { PoModalModule } from '@po-ui/ng-components';
     PoTableModule,
     PoModalModule,
     DashboardRoutingModule,
+    PoGridModule,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

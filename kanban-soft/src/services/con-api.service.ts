@@ -23,7 +23,7 @@ export class ConApiService {
   private configUrl = "https://localhost:5001/";
   //
   public GetTasks() {
-    return this.http.get<Tasks[]>(this.configUrl + "Tasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+    return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
   public GetTasksByStatus(stats: number) {
     return this.http.get<Tasks[]>(this.configUrl + "Tasks/getByStatus/"+stats, this.httpOptions).pipe(map(a => a), catchError(this.handleError));

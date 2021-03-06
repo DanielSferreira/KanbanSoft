@@ -40,9 +40,7 @@ namespace KanbanSoft.Controllers
         [HttpPut]
         public ActionResult<User> Put([FromBody] User data)
         {
-            User prevData = userManager.GetEntity(data.Id);
-            userManager.Update(prevData, data);
-
+            userManager.Update(data);
             return Ok(data);
         }
         [HttpDelete]

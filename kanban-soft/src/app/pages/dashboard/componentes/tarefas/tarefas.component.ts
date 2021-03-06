@@ -14,11 +14,11 @@ import { Tasks, TaskTemplate } from 'src/interfaces/TaskTemplate';
 export class TarefasComponent implements OnInit {
 
   constructor(private a: ConApiService, private router: Router) { }
-  Lista: Observable<Tasks[]>
+  Lista: Observable<TaskTemplate[]>
 
-  fazer: Tasks[]
-  fazendo: Tasks[]
-  concluido: Tasks[]
+  fazer: TaskTemplate[]
+  fazendo: TaskTemplate[]
+  concluido: TaskTemplate[]
 
   id_user = 4;
   dataPego = new Date().getUTCDate();
