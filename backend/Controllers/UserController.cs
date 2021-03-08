@@ -37,6 +37,20 @@ namespace KanbanSoft.Controllers
             userManager.Add(data);
             return Ok(data);
         }
+        [HttpPost("{id}")]
+        public ActionResult<User> getNickName(int id)
+        {
+            var user = userManager.GetEntity(id);
+            if (user != null)
+                return Ok(new
+                {
+                    name = user.name,
+                    nick = user.nick,
+                    email = user.email
+                });
+            else
+                return BadRequest("Houve um erro ao buscar o usuario");
+        }
         [HttpPut]
         public ActionResult<User> Put([FromBody] User data)
         {

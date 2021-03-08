@@ -12,31 +12,6 @@ namespace KanbanSoft.Services
             context = _C;
         }
 
-        public Task UpdateOnly(Task newTask)
-        {
-            var original = context.tasks.Single(x => x.Id == newTask.Id);
-
-            if (newTask.IdUser != 0)
-                original.IdUser = newTask.IdUser;
-            if (newTask.Level != 0)
-                original.Level = newTask.Level;
-            if (newTask.Name != null)
-                original.Name = newTask.Name;
-            if (newTask.Description != null)
-                original.Description = newTask.Description;
-            if (newTask.Title != null)
-                original.Title = newTask.Title;
-            if (newTask.TrackDate != null)
-                original.TrackDate = newTask.TrackDate;
-            if (newTask.DateRelease != null)
-                original.DateRelease = newTask.DateRelease;
-            if (newTask.DeliveryDate != null)
-                original.DeliveryDate = newTask.DeliveryDate;
-
-            context.SaveChanges();
-            return original;
-        }
-
         IEnumerable<Task> IDataRepository<Task>.GetAll()
         {
             return context.tasks.ToList();
@@ -53,7 +28,6 @@ namespace KanbanSoft.Services
 
                 if (tempTask is not null)
                     return false;
-
                 try
                 {
                     context.tasks.Add(et);
@@ -67,7 +41,6 @@ namespace KanbanSoft.Services
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
@@ -76,11 +49,13 @@ namespace KanbanSoft.Services
             try
             {
                 var original = context.tasks.Single(x => x.Id == newTask.Id);
-
+                System.Console.WriteLine(original.DateRelease);
                 if (newTask.IdUser != 0)
                     original.IdUser = newTask.IdUser;
                 if (newTask.Level != 0)
                     original.Level = newTask.Level;
+                if (newTask.Status >= -1)
+                    original.Status = newTask.Status;
                 if (newTask.Name != null)
                     original.Name = newTask.Name;
                 if (newTask.Description != null)

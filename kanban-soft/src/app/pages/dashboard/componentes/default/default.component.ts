@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConApiService } from 'src/services/con-api.service';
 
 @Component({
   selector: 'app-default',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DefaultComponent implements OnInit {
 
-  constructor() { }
+  constructor(private con: ConApiService) { }
 
+  list
   ngOnInit(): void {
+    this.con.GetTasksByStatus(1).subscribe(x=> this.list = x.filter(t=>t.idUser = 4))
   }
 
 }

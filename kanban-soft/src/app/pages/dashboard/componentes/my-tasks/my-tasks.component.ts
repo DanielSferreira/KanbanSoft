@@ -16,18 +16,17 @@ export class MyTasksComponent implements OnInit {
   list: Observable<TaskTemplate[]>;
   constructor(
     private con: ConApiService,
-    private dt: DatePipe
   ) {
-    this.list = this.con.GetTasks();
+    this.list = this.con.GetDispTasks();
 
   }
-  currencyObj;
+  items;
   ngOnInit(): void {
 
     this.list.toPromise().then(x => {
-      this.currencyObj = x.map(d => {
-        let format = "dd/MM/yyyy - HH:mm"
-        d.trackDate = this.dt.transform(d.trackDate, format)
+      this.items = x.map(d => {
+        // let format = "dd/MM/yyyy - HH:mm"
+        // d.trackDate = this.dt.transform(d.trackDate, format)
         return d;
       })
     });
@@ -36,12 +35,14 @@ export class MyTasksComponent implements OnInit {
   columns = [
     { property: 'id', label: 'Código', },
     { property: 'title', label: 'Titulo Tarefa' },
-    //{ property: 'description', label: 'Descrição', },
-    { property: 'trackDate', label: 'Data que foi Pego', },
+    { property: 'trackDate', label: 'Data que foi Pego', type: 'columnTemplate' },
     { property: 'abc', label: 'Ações', type: 'cellTemplate' },
   ];
-abc(e){
-  console.log(e);
-}
+  finaliza(row: TaskTemplate) {
+    row.status = 4;
+    console.log(row);
+
+    this.con.PutTasks(row).subscribe(e => console.log(e), err => console.log(err));
+  }
 
 }

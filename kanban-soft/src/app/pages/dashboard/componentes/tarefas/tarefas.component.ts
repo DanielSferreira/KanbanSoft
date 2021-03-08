@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { ConApiService } from 'src/services/con-api.service';
 import { ListaEstado } from 'src/interfaces/ListaEstado';
-import { Tasks, TaskTemplate } from 'src/interfaces/TaskTemplate';
+import { TaskTemplate } from 'src/interfaces/TaskTemplate';
+import { UtilitiesService } from 'src/services/utilities.service';
 
 @Component({
   selector: 'app-tarefas',
@@ -13,15 +13,14 @@ import { Tasks, TaskTemplate } from 'src/interfaces/TaskTemplate';
 })
 export class TarefasComponent implements OnInit {
 
-  constructor(private a: ConApiService, private router: Router) { }
-  Lista: Observable<TaskTemplate[]>
+  constructor(private a: ConApiService, private helper: UtilitiesService, private router: Router) { }
+  Lista: Observable<TaskTemplate[]>;
 
-  fazer: TaskTemplate[]
-  fazendo: TaskTemplate[]
-  concluido: TaskTemplate[]
+  fazer: TaskTemplate[];
+  fazendo: TaskTemplate[];
+  concluido: TaskTemplate[];
 
   id_user = 4;
-  dataPego = new Date().getUTCDate();
 
   ngOnInit(): void {
     this.Lista = this.a.GetTasks();
@@ -29,53 +28,53 @@ export class TarefasComponent implements OnInit {
   }
 
   mudar(item: ListaEstado) {
-
+    let res: TaskTemplate;
     if (item.lista === "Para Fazer")
-      this._pegarTarefa(item)
+      res = this._pegarTarefa(item);
     else if (item.lista === "Sendo Feito")
-      this._concluirTarefa(item)
+      res = this._concluirTarefa(item);
     else if (item.lista === "Já concluido")
-      this._corrigirTarefa(item)
+      res = this._corrigirTarefa(item);
 
     this.FilterLista();
-    this.redirectTo("dashboard/tasks")
+    this.a.PutTasks(res).subscribe();
+    this.helper.redirectTo("dashboard/tasks");
   }
 
-  private _pegarTarefa(item: ListaEstado) {
-    let help = this.fazer[item.index]
-    var temTask: TaskTemplate = {
+  private _pegarTarefa(item: ListaEstado): TaskTemplate {
+    let help = this.fazer[item.index];
+    return {
       id: help.id,
       idUser: this.id_user,
       name: help.name,
       title: help.title,
       description: help.description,
       status: item.novoEstado,
-      dateRelease: new Date(),
+      dateRelease: help.dateRelease,
       trackDate: new Date(),
-      deliveryDate: new Date(),
+      deliveryDate: '',
       level: help.level
-    }
-    this.a.PutTasks(temTask).subscribe();
+    };
+
   }
-  private _concluirTarefa(item: ListaEstado) {
-    let help = this.fazendo[item.index]
-    var temTask: TaskTemplate = {
+  private _concluirTarefa(item: ListaEstado): TaskTemplate {
+    let help = this.fazendo[item.index];
+    return {
       id: help.id,
       idUser: this.id_user,
       name: help.name,
       title: help.title,
       description: help.description,
       status: item.novoEstado,
-      dateRelease: new Date(),
-      trackDate: new Date(),
+      dateRelease: help.dateRelease,
+      trackDate: help.trackDate,
       deliveryDate: new Date(),
       level: help.level
-    }
-    this.a.PutTasks(temTask).subscribe();
+    };
   }
-  private _corrigirTarefa(item: ListaEstado) {
-    let help = this.concluido[item.index]
-    var temTask: TaskTemplate = {
+  private _corrigirTarefa(item: ListaEstado): TaskTemplate {
+    let help = this.concluido[item.index];
+    return {
       id: help.id,
       idUser: this.id_user,
       name: help.name,
@@ -86,21 +85,16 @@ export class TarefasComponent implements OnInit {
       trackDate: new Date(),
       deliveryDate: new Date(),
       level: help.level
-    }
-    this.a.PutTasks(temTask).subscribe();
+    };
   }
 
-  redirectTo(uri:string){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-    this.router.navigate([uri]));
- }
   private FilterLista() {
     this.Lista.toPromise().then(lista => {
-      this.fazer = lista.filter(a => a.status == 0)
-      this.fazendo = lista.filter(a => a.status == 1)
-      this.concluido = lista.filter(a => a.status == 2)
-    }).catch(e => console.log(e))
-      
+      this.fazer = lista.filter(a => a.status == 0);
+      this.fazendo = lista.filter(a => a.status == 1);
+      this.concluido = lista.filter(a => a.status == 2);
+    }).catch(e => console.log(e));
+
   }
 }
 

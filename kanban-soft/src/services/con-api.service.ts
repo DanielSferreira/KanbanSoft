@@ -2,7 +2,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Tasks, TaskTemplate } from 'src/interfaces/TaskTemplate';
+import { TaskTemplate, UserGet } from 'src/interfaces/TaskTemplate';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +21,22 @@ export class ConApiService {
   constructor(private http: HttpClient) { }
 
   private configUrl = "https://localhost:5001/";
-  //
+
   public GetTasks() {
     return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
   public GetTasksByStatus(stats: number) {
-    return this.http.get<Tasks[]>(this.configUrl + "Tasks/getByStatus/"+stats, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+    return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/getByStatus/" + stats, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+  public GetDispTasks() {
+    return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/getDispTasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+  public GetUser() {
+    return this.http.get<UserGet[]>(this.configUrl + "User/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
   public PutTasks(item: TaskTemplate) {
 
-    return this.http.put<Tasks>(this.configUrl + "Tasks/", {
+    return this.http.put<TaskTemplate>(this.configUrl + "Tasks/", {
       id: item.id,
       idUser: item.idUser,
       name: item.name,
@@ -46,7 +52,7 @@ export class ConApiService {
   }
 
   public PostTasks(item) {
-    return this.http.post<Tasks>(this.configUrl + "Tasks/", {
+    return this.http.post<TaskTemplate>(this.configUrl + "Tasks/", {
       id: 0,
       idUser: 0,
       name: "",
@@ -63,7 +69,7 @@ export class ConApiService {
 
   private handleError(error: HttpErrorResponse) {
     console.log("Deu Ruim");
-    
+
     return throwError(error);
   }
 }

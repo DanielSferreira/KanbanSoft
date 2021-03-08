@@ -14,9 +14,9 @@ namespace KanbanSoft.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
-        public DateTime DateRelease { get; set; }
-        public DateTime TrackDate { get; set; }
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DateRelease { get; set; }
+        public DateTime? TrackDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
         public int Level { get; set; }
     }
 }

@@ -5,14 +5,22 @@
       <po-modal #modal [p-title]=item.title>
         <div class="guardModal">
           <h3>{{item.description}}</h3>
-          <h4><b>Data de Entrega: </b>{{item.dateRelease | date}}</h4>
+          <h4><b>Criado em: </b>{{item.dateRelease | date}}</h4>
+          <div *ngIf="getUserData(item.idUser).name !==''">
+          <h4><b>Pego </b>{{item.trackDate | date:dateFormat}}</h4>
+          <h4><b>Entrega Prevista </b>{{item.deliveryDate | date:dateFormat}}</h4>
+          <h3 style="margin-top: 12px;">Pessoa: {{getUserData(item.idUser).name}}</h3>
+          <h3>Contato: {{getUserData(item.idUser).email}}</h3>
+          </div>
         </div>
       </po-modal>
       <div class="po-row">
 
         <div class="span" (click)="modal.open()">
-          <po-tag [p-color]="'color-0'+item.level" class="po-font-title float" [p-value]="resolveStatus(item.level)"></po-tag>
-          <div class="po-font-text-large" *ngIf="!(item.idUser == 0)">Pessoa: {{item.idUser}}</div>
+          <po-tag [p-color]="'color-0'+item.level" class="po-font-title float" [p-value]="resolveStatus(item.level)">
+          </po-tag>
+          <div class="po-font-text-large" *ngIf="!(item.idUser == 0)">Dirigida por: {{getUserData(item.idUser).nick}}
+          </div>
           <div class="po-font-text-large">Data Pego: {{item.trackDate | date}}</div>
           <div class="po-row lador">
             Ver mais +
@@ -20,7 +28,7 @@
         </div>
 
         <div class="po-row">{{item.name}}</div>
-        <div class="po-row lador">
+        <div class="po-row lador" *ngIf="item.idUser === 4 || item.status === 0">
           <po-button *ngFor="let i of labels_buttons" p-label={{i.Label}} (click)="pass(ie, i.NovoEstado)">
           </po-button>
         </div>

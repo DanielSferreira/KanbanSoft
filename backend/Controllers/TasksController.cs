@@ -1,7 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using KanbanSoft.Models;
-using KanbanSoft.Helpers;
+using System;
 using System.Collections.Generic;
 using KanbanSoft.Services;
 
@@ -29,6 +29,11 @@ namespace KanbanSoft.Controllers
         {
             return tasksManager.GetAll().Where(e => e.Status == s);
         }
+        [HttpGet("getDispTasks")]
+        public IEnumerable<Task> getDispTasks()
+        {
+            return tasksManager.GetAll().Where(e => e.Status == 0 || e.Status == 1 || e.Status == 2);
+        }
         [HttpGet("getByUser/{s}")]
         public IEnumerable<Task> getByUser(int s)
         {
@@ -46,9 +51,7 @@ namespace KanbanSoft.Controllers
         [HttpPut]
         public ActionResult<Task> Put([FromBody] Task data)
         {
-            Task prevData = tasksManager.GetEntity(data.Id);
             tasksManager.Update(data);
-
             return Ok(data);
         }
         [HttpDelete]

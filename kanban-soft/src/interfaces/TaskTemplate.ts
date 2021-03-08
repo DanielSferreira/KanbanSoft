@@ -11,21 +11,11 @@ export interface TaskTemplate {
   level: number,
 }
 
-export interface Tasks {
-  id: number,
+export interface UserGet {
+  id:number,
   name: string,
-  title: string,
-  description: string,
-  status: number,
-  level: number,
-  date: string
-}
-export interface TaskTrack {
-  "id": number,
-  "idTask": number,
-  "idUser": number,
-  "trackDate": any,
-  "deliveryDate": any
+  nick: string,
+  email: string
 }
 export interface ErrorModel {
   statusCode: number;
