@@ -33,8 +33,10 @@ namespace KanbanSoft.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([FromBody] User a)
+        public ActionResult Login([FromBody] UserLogin a)
         {
+            System.Console.WriteLine(a.email+ " "+ a.pass);
+            
             LoginHelper user = loginService.Login(a.email, a.pass);
             
             if (user.status)

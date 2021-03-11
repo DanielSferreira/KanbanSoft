@@ -1,15 +1,13 @@
-<h2 class="po-font-title">Escolha a tarefas</h2>
-<p>
-    
-</p>
-<app-coluna-grade nome="Para Fazer" [lista]="fazer" (newItemEvent)="mudar($event)"
+<h2 class="po-font-title">Escolha a tarefas{{id_user}}</h2>
+
+<app-coluna-grade [user]="id_user" nome="Para Fazer" [lista]="fazer" (newItemEvent)="mudar($event)"
     [labels_buttons]="[{Label:'Pegar Tarefa',NovoEstado:1} ]">
 </app-coluna-grade>
 
-<app-coluna-grade nome="Sendo Feito" [lista]="fazendo" (newItemEvent)="mudar($event)"
+<app-coluna-grade [user]="id_user" nome="Sendo Feito" [lista]="fazendo" (newItemEvent)="mudar($event)"
     [labels_buttons]="[{Label:'Devolver',NovoEstado:0},{Label:'Concluir',NovoEstado:2} ]">
 </app-coluna-grade>
 
-<app-coluna-grade nome="Já concluido" [lista]="concluido" (newItemEvent)="mudar($event)"
-    [labels_buttons]="[{Label:'Alterar',NovoEstado:1},{Label:'aaa',NovoEstado:3} ]">
+<app-coluna-grade [user]="id_user" nome="Já concluido" [lista]="concluido" (newItemEvent)="mudar($event)"
+    [labels_buttons]="[{Label:'Alterar',NovoEstado:1}]">
 </app-coluna-grade>

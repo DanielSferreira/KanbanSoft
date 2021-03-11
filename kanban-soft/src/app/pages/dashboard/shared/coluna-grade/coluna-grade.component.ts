@@ -17,6 +17,7 @@ export class ColunaGradeComponent implements OnInit {
   dateFormat = "'as' hh:mm 'em' dd/MM";
   @Input() lista: TaskTemplate[];
   @Input() nome: any;
+  @Input() user: number;
   @Input() labels_buttons: any[];
   @Output() newItemEvent = new EventEmitter<ListaEstado>();
 

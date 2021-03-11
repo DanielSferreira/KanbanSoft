@@ -26,7 +26,7 @@ namespace KanbanSoft.Services
                .Where(p => Crypt.Decrypt(senha, p.pass) == true)
                .Select(p => new User
                {
-                   nick = p.nick,
+                   Id = p.Id,
                    email = p.email,
                    name = p.name
                })
@@ -40,7 +40,7 @@ namespace KanbanSoft.Services
                 return new LoginHelper()
                 {
                     status = true,
-                    user = user_autenticado.nick,
+                    user = user_autenticado.Id,
                     token = tk
                 };
             }

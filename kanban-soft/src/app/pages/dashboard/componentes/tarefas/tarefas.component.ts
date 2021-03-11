@@ -5,6 +5,7 @@ import { ConApiService } from 'src/services/con-api.service';
 import { ListaEstado } from 'src/interfaces/ListaEstado';
 import { TaskTemplate } from 'src/interfaces/TaskTemplate';
 import { UtilitiesService } from 'src/services/utilities.service';
+import { LoginServiceService } from 'src/services/login-service.service';
 
 @Component({
   selector: 'app-tarefas',
@@ -13,14 +14,14 @@ import { UtilitiesService } from 'src/services/utilities.service';
 })
 export class TarefasComponent implements OnInit {
 
-  constructor(private a: ConApiService, private helper: UtilitiesService, private router: Router) { }
+  constructor(private a: ConApiService, private helper: UtilitiesService, private router: Router, private login: LoginServiceService) { }
   Lista: Observable<TaskTemplate[]>;
 
   fazer: TaskTemplate[];
   fazendo: TaskTemplate[];
   concluido: TaskTemplate[];
 
-  id_user = 4;
+  id_user = this.login.GetUser();
 
   ngOnInit(): void {
     this.Lista = this.a.GetTasks();
@@ -81,9 +82,9 @@ export class TarefasComponent implements OnInit {
       title: help.title,
       description: help.description,
       status: item.novoEstado,
-      dateRelease: new Date(),
-      trackDate: new Date(),
-      deliveryDate: new Date(),
+      dateRelease: '',
+      trackDate: '',
+      deliveryDate: '',
       level: help.level
     };
   }

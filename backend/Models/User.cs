@@ -13,6 +13,7 @@ namespace KanbanSoft.Models
         public string email { get; set; }
         public string pass { get; set; }
         public string nick { get; set; }
-        public string levels { get; set; }
+        public int score { get; set; }
+        public string role { get; set; }
     }
 }

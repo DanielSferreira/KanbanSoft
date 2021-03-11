@@ -20,7 +20,7 @@ namespace KanbanSoft.Helpers
             {
                 Subject = new ClaimsIdentity(new Claim[]{
                     new Claim(ClaimTypes.Name, user.name.ToString()),
-                    new Claim(ClaimTypes.Role, user.email.ToString())
+                    new Claim(ClaimTypes.Role, user.role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(

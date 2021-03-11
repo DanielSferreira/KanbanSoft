@@ -6,10 +6,10 @@
         <div class="guardModal">
           <h3>{{item.description}}</h3>
           <h4><b>Criado em: </b>{{item.dateRelease | date}}</h4>
-          <div *ngIf="getUserData(item.idUser).name !==''">
+          <div style="margin-top: 12px;" *ngIf="getUserData(item.idUser).name !==''">
           <h4><b>Pego </b>{{item.trackDate | date:dateFormat}}</h4>
           <h4><b>Entrega Prevista </b>{{item.deliveryDate | date:dateFormat}}</h4>
-          <h3 style="margin-top: 12px;">Pessoa: {{getUserData(item.idUser).name}}</h3>
+          <h3 style="margin-top: 6px;">Pessoa: {{getUserData(item.idUser).name}}</h3>
           <h3>Contato: {{getUserData(item.idUser).email}}</h3>
           </div>
         </div>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="po-row">{{item.name}}</div>
-        <div class="po-row lador" *ngIf="item.idUser === 4 || item.status === 0">
+        <div class="po-row lador" *ngIf="item.idUser === user || item.status === 0">
           <po-button *ngFor="let i of labels_buttons" p-label={{i.Label}} (click)="pass(ie, i.NovoEstado)">
           </po-button>
         </div>
