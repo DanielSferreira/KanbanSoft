@@ -28,6 +28,7 @@ namespace KanbanSoft.Services
                {
                    Id = p.Id,
                    email = p.email,
+                   role = p.role,
                    name = p.name
                })
                .First();

@@ -18,7 +18,7 @@ export class DefaultComponent implements OnInit {
   user:number
   list
   ngOnInit(): void {
-    this.con.GetTasksByUser(this.user).subscribe(x=> this.list = x.filter(t=>t.idUser = 4))
+    this.con.GetTasksByUser(this.user).subscribe(x=> this.list = x.filter(t=>t.status === 1))
   }
 
 }

@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { PoContainerModule, PoModule, PoListViewModule, PoPageModule } from '@po-ui/ng-components';
 import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
-import { AuthGuardService } from 'src/services/auth-guard.service';
+import { PoToolbarModule } from '@po-ui/ng-components';
+import { ToolBarComponent } from './shared/tool-bar/tool-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { AuthGuardService } from 'src/services/auth-guard.service';
     BrowserModule,
     PoPageLoginModule,
     PoTemplatesModule,
+    PoToolbarModule,
     PoContainerModule,
     PoModule,
     PoListViewModule,
@@ -28,7 +30,7 @@ import { AuthGuardService } from 'src/services/auth-guard.service';
     RouterModule,
     HttpClientModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
   providers: [],
   bootstrap: [AppComponent],
 })

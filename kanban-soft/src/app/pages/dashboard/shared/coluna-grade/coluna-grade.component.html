@@ -7,10 +7,10 @@
           <h3>{{item.description}}</h3>
           <h4><b>Criado em: </b>{{item.dateRelease | date}}</h4>
           <div style="margin-top: 12px;" *ngIf="getUserData(item.idUser).name !==''">
-          <h4><b>Pego </b>{{item.trackDate | date:dateFormat}}</h4>
-          <h4><b>Entrega Prevista </b>{{item.deliveryDate | date:dateFormat}}</h4>
-          <h3 style="margin-top: 6px;">Pessoa: {{getUserData(item.idUser).name}}</h3>
-          <h3>Contato: {{getUserData(item.idUser).email}}</h3>
+            <h4><b>Pego </b>{{item.trackDate | date:dateFormat}}</h4>
+            <h4><b>Entrega Prevista </b>{{item.deliveryDate | date:dateFormat}}</h4>
+            <h3 style="margin-top: 6px;">Pessoa: {{getUserData(item.idUser).name}}</h3>
+            <h3>Contato: {{getUserData(item.idUser).email}}</h3>
           </div>
         </div>
       </po-modal>
@@ -21,7 +21,8 @@
           </po-tag>
           <div class="po-font-text-large" *ngIf="!(item.idUser == 0)">Dirigida por: {{getUserData(item.idUser).nick}}
           </div>
-          <div class="po-font-text-large">Data Pego: {{item.trackDate | date}}</div>
+          <div class="po-font-text-large" *ngIf="item.trackDate !== '2001-01-01T02:00:00'" >  Data Pego: {{item.trackDate | date}}</div>
+          <div class="po-font-text-large" *ngIf="item.trackDate === '2001-01-01T02:00:00'" >  Data Criado: {{item.dateRelease | date}}</div>
           <div class="po-row lador">
             Ver mais +
           </div>

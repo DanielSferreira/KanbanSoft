@@ -29,17 +29,21 @@ export class TarefasComponent implements OnInit {
   }
 
   mudar(item: ListaEstado) {
+    console.log(item);
+
     let res: TaskTemplate;
     if (item.lista === "Para Fazer")
       res = this._pegarTarefa(item);
-    else if (item.lista === "Sendo Feito")
+    else if (item.lista === "Sendo Feito" && item.novoEstado === 0)
+      res = this.AbandonarTarefa(item);
+    else if (item.lista === "Sendo Feito" && item.novoEstado === 2)
       res = this._concluirTarefa(item);
     else if (item.lista === "Já concluido")
       res = this._corrigirTarefa(item);
 
     this.FilterLista();
-    this.a.PutTasks(res).subscribe();
-    this.helper.redirectTo("dashboard/tasks");
+    this.a.PutTasks(res).subscribe(()=>
+    this.helper.redirectTo("dashboard/tasks"));
   }
 
   private _pegarTarefa(item: ListaEstado): TaskTemplate {
@@ -57,6 +61,22 @@ export class TarefasComponent implements OnInit {
       level: help.level
     };
 
+  }
+  private AbandonarTarefa(item: ListaEstado): TaskTemplate {
+    let help = this.fazendo[item.index];
+
+    return {
+      id: help.id,
+      idUser: -1,
+      name: help.name,
+      title: help.title,
+      description: help.description,
+      status: 0,
+      dateRelease: help.dateRelease,
+      trackDate:  new Date("01/01/0001"),
+      deliveryDate: '',
+      level: help.level
+    };
   }
   private _concluirTarefa(item: ListaEstado): TaskTemplate {
     let help = this.fazendo[item.index];
@@ -84,7 +104,7 @@ export class TarefasComponent implements OnInit {
       status: item.novoEstado,
       dateRelease: '',
       trackDate: '',
-      deliveryDate: '',
+      deliveryDate: new Date("01/01/0001"),
       level: help.level
     };
   }

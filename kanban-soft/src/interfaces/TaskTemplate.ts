@@ -33,3 +33,8 @@ export interface TokenModel {
   user: string,
   token: string,
 }
+
+export interface TokenData {
+  unique_name: string,
+  role: string,
+}

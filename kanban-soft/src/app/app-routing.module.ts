@@ -7,14 +7,15 @@ import { RoleGuardService } from '../services/role-guard.service'
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "", 
-  redirectTo: 'login', 
-  pathMatch: 'prefix' },
+  {
+    path: "",
+    redirectTo: 'login',
+    pathMatch: 'prefix'
+  },
   {
     path: "dashboard",
     canActivateChild: [AuthGuardChildService],
     canActivate: [RoleGuardService],
-    data: {role: 'normal'},
     loadChildren: () => import("./pages/dashboard/dashboard.module").then(m => m.DashboardModule)
   }
 ];

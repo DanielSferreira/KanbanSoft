@@ -4,7 +4,7 @@ import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import Cookies from 'js-cookie';
 
-import { LoginModel, TokenModel } from "../interfaces/TaskTemplate";
+import { LoginModel, TokenData, TokenModel } from "../interfaces/TaskTemplate";
 import decode from 'jwt-decode';
 
 @Injectable({
@@ -27,23 +27,26 @@ export class LoginServiceService {
     return this.http.post<TokenModel>(this.configUrl + "login/", { email: login.login, pass: login.password }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
   public guardTokenInCache(token: TokenModel) {
-    if (Cookies.get('token') === undefined) {
-      Cookies.set('token', token.token, { expires: 0.084 });
-      Cookies.set('user', token.user, { expires: 0.084 });
-    }
+    Cookies.set('token', token.token, { expires: 0.084 });
+    Cookies.set('user', token.user, { expires: 0.084 });
+  }
+  public Logout() {
+    Cookies.remove('token');
+    Cookies.remove('user');
+    window.location.href = '/';
   }
   public HaveToken(): boolean {
     return Cookies.get('token') !== undefined;
   }
-  public Decode() {
-    return Cookies.get('token') !== undefined ? decode(Cookies.get('token')) : '';
+  public Decode(): TokenData {
+    return decode(Cookies.get('token'));
   }
   public GetUser(): number {
     return Cookies.get('user') !== undefined ? parseInt(Cookies.get('user')) : 0;
   }
+
   private handleError(error: HttpErrorResponse) {
     console.log("Deu Ruim");
-
     return throwError(error);
   }
 }

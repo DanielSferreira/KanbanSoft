@@ -22,6 +22,7 @@ import { PoTableModule } from '@po-ui/ng-components';
 import { PoTagModule } from '@po-ui/ng-components';
 import { PoModalModule } from '@po-ui/ng-components';
 import { PoGridModule } from '@po-ui/ng-components';
+import { ToolBarComponent } from 'src/app/shared/tool-bar/tool-bar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PoGridModule } from '@po-ui/ng-components';
     NewTaskComponent,
     MyTasksComponent,
     QuestionsComponent,
-    ColunaGradeComponent
+    ColunaGradeComponent,
+    ToolBarComponent
   ],
   imports: [
     CommonModule,

@@ -15,9 +15,13 @@ export class RoleGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean
   {
-    let us = this.login.Decode();
+    let us: tokenData = this.login.Decode();
     console.log(us);
-    
-    return true;
+    if(us.role === 'normal') return true;
+    if(us.role === 'admin') return true;
+    else return false;
   }
+}
+interface tokenData {
+  role: string
 }
