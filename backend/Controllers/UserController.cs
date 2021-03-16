@@ -44,8 +44,33 @@ namespace KanbanSoft.Controllers
             if (user != null)
                 return Ok(new
                 {
+                    id = user.Id,
                     name = user.name,
                     nick = user.nick,
+                    score = user.score,
+                    email = user.email
+                });
+            else
+                return BadRequest("Houve um erro ao buscar o usuario");
+        }
+        [HttpPut("updateScore/{id}/{score}/{type}")]
+        public ActionResult<User> UpdateScore(int id, int score, string type)
+        {
+            var user = userManager.GetEntity(id);
+            if(type == "REMOVE" && user.score >=0)
+                user.score -= score;
+            if(type == "ADD" && user.score <=8)
+                user.score += score;
+            if(user.score <0 || user.score >=8)
+                return BadRequest("Não Foi Possível Fazer o Update do score user, pelo fato de ser maior que o permitido ou menor que 0");
+            userManager.Update(user);
+            if (user != null)
+                return Ok(new
+                {
+                    id = user.Id,
+                    name = user.name,
+                    nick = user.nick,
+                    score = user.score,
                     email = user.email
                 });
             else
@@ -54,6 +79,7 @@ namespace KanbanSoft.Controllers
         [HttpPut]
         public ActionResult<User> Put([FromBody] User data)
         {
+            System.Console.WriteLine("A");
             userManager.Update(data);
             return Ok(data);
         }

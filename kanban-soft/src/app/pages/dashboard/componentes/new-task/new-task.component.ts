@@ -35,7 +35,7 @@ export class NewTaskComponent implements OnInit {
 
   ListaImportancia = [
     { label: 'Necessário', value: '2' },
-    { label: 'Importante', value: '9' },
+    { label: 'Importante', value: '5' },
     { label: 'Urgente', value: '7' }
   ];
 

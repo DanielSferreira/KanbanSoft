@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConApiService } from 'src/services/con-api.service';
 import { ListaEstado } from 'src/interfaces/ListaEstado';
-import { TaskTemplate } from 'src/interfaces/TaskTemplate';
+import { TaskTemplate, UserGet } from 'src/interfaces/TaskTemplate';
 import { UtilitiesService } from 'src/services/utilities.service';
 import { LoginServiceService } from 'src/services/login-service.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-tarefas',
@@ -14,22 +14,41 @@ import { LoginServiceService } from 'src/services/login-service.service';
 })
 export class TarefasComponent implements OnInit {
 
-  constructor(private a: ConApiService, private helper: UtilitiesService, private router: Router, private login: LoginServiceService) { }
+  constructor(
+    private a: ConApiService,
+    private helper: UtilitiesService,
+    private users: UserService,
+    private login: LoginServiceService
+  ) { }
   Lista: Observable<TaskTemplate[]>;
 
   fazer: TaskTemplate[];
   fazendo: TaskTemplate[];
   concluido: TaskTemplate[];
 
-  id_user = this.login.GetUser();
+  public user: UserGet = {
+    id:0,
+    email:"",
+    name:"",
+    nick:"",
+    score:0
+  };
 
   ngOnInit(): void {
-    this.Lista = this.a.GetTasks();
+    this.users.GetUser(
+      this.login.GetUser()).subscribe(
+        res => {
+          console.log(res);
+          this.user = res
+        }
+      );
+
+    this.Lista = this.a.GetDispTasks();
     this.FilterLista();
+
   }
 
   mudar(item: ListaEstado) {
-    console.log(item);
 
     let res: TaskTemplate;
     if (item.lista === "Para Fazer")
@@ -42,15 +61,26 @@ export class TarefasComponent implements OnInit {
       res = this._corrigirTarefa(item);
 
     this.FilterLista();
-    this.a.PutTasks(res).subscribe(()=>
-    this.helper.redirectTo("dashboard/tasks"));
+    let type = "";
+    if (item.lista === "Para Fazer" || item.lista === "Já concluido")
+      type = "ADD";
+    if (item.lista === "Sendo Feito")
+      type = "REMOVE";
+
+    this.users.UpdateScore({ id: this.user.id, score: res.level, type: type }).subscribe(e => {
+      this.user.score = e.score;
+      this.a.PutTasks(res).subscribe(() =>
+        this.helper.redirectTo("dashboard/tasks")
+      )
+    }, () => alert("e"))
+
   }
 
   private _pegarTarefa(item: ListaEstado): TaskTemplate {
     let help = this.fazer[item.index];
     return {
       id: help.id,
-      idUser: this.id_user,
+      idUser: this.user.id,
       name: help.name,
       title: help.title,
       description: help.description,
@@ -73,7 +103,7 @@ export class TarefasComponent implements OnInit {
       description: help.description,
       status: 0,
       dateRelease: help.dateRelease,
-      trackDate:  new Date("01/01/0001"),
+      trackDate: new Date("01/01/0001"),
       deliveryDate: '',
       level: help.level
     };
@@ -82,7 +112,7 @@ export class TarefasComponent implements OnInit {
     let help = this.fazendo[item.index];
     return {
       id: help.id,
-      idUser: this.id_user,
+      idUser: this.user.id,
       name: help.name,
       title: help.title,
       description: help.description,
@@ -97,7 +127,7 @@ export class TarefasComponent implements OnInit {
     let help = this.concluido[item.index];
     return {
       id: help.id,
-      idUser: this.id_user,
+      idUser: this.user.id,
       name: help.name,
       title: help.title,
       description: help.description,

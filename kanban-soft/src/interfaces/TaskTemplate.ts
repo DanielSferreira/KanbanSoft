@@ -15,7 +15,8 @@ export interface UserGet {
   id:number,
   name: string,
   nick: string,
-  email: string
+  email: string,
+  score: number
 }
 export interface LoginModel {
   login: string, 

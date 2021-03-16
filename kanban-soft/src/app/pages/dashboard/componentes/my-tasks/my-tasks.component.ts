@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { TaskTemplate } from 'src/interfaces/TaskTemplate';
 import { ConApiService } from 'src/services/con-api.service';
 import { LoginServiceService } from 'src/services/login-service.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-my-tasks',
@@ -13,8 +14,12 @@ export class MyTasksComponent implements OnInit {
 
   list: Observable<TaskTemplate[]>;
   items;
- 
-  constructor(private con: ConApiService,private login: LoginServiceService) {
+
+  constructor(
+    private con: ConApiService,
+    private login: LoginServiceService,
+    private user: UserService
+  ) {
     this.list = this.con.GetTasksByUser(this.login.GetUser());
   }
 
@@ -31,10 +36,15 @@ export class MyTasksComponent implements OnInit {
   ];
 
   finaliza(row: TaskTemplate) {
-    
+
     row.status = 4;
     console.log(row);
-    this.con.PutTasks(row).subscribe(e => console.log(e), err => console.log(err));
+    this.user.UpdateScore({ id: row.id, score: row.level, type: "REMOVE" }).subscribe(
+      () => this.con.PutTasks(row).subscribe(
+        e => console.log(e), err => console.log(err)),
+      err => console.log(err)
+
+    )
   }
 
 }
