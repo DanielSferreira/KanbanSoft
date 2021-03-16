@@ -1,0 +1,22 @@
+<po-breadcrumb [p-items]="[
+    { label: 'Voltar ao Inicio', link: '../' },
+    { label: 'Minhas Tarefas', link: 'tasks' }
+  ]">
+</po-breadcrumb>
+<po-table [p-items]="items" [p-striped]="true" [p-columns]="columns">
+  <ng-template p-table-column-template p-property="trackDate" let-value>
+    {{value | date:"dd/MM/yyyy - HH:mm"}}
+  </ng-template>
+
+  <ng-template p-table-cell-template let-column="abc" let-row="row">
+    <po-modal #modal [p-title]="row.title">
+      <div style="margin-left: 35px;">
+        <h3 style="margin-bottom: 15px; font-size: 14pt;">{{row.description}}</h3>
+        <h4><b>Data de Entrega: </b>{{row.deliveryDate | date:"dd/MM/yyyy - HH:mm"}}</h4>
+        <h4><b>Data que foi pego: </b>{{row.dateRelease | date:"dd/MM/yyyy - HH:mm"}}</h4>
+      </div>
+    </po-modal>
+    <po-button p-label="Editar" (click)="modal.open()"></po-button>
+    <po-button p-label="Finalizar" (click)="finaliza(row)"></po-button>
+  </ng-template>
+</po-table>
