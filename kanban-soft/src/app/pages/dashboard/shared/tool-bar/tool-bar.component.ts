@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PoToolbarAction, PoToolbarProfile, PoDialogService, PoNotificationService } from '@po-ui/ng-components';
 import { TokenData } from 'src/interfaces/TaskTemplate';
 import { LoginServiceService } from 'src/services/login-service.service';
@@ -16,19 +16,20 @@ export class ToolBarComponent {
 
   profileActions: Array<PoToolbarAction>;
 
-  title: string = 'Dashboard';
+  title: string = 'dashboard';
+
 
   normal = [
     { icon: 'po-icon-user', label: 'Account', action: () => this.route.navigate(['/account']) },
     { icon: 'po-icon-pallet-full', label: 'Panel', action: () => this.route.navigate(['/dashboard']) },
-    { icon: 'po-icon-exit', label: 'Exit', type: 'danger', separator: true, action: () => this.login.Logout() }
+    { icon: 'po-icon-exit', label: 'Sair', type: 'danger', separator: true, action: () => this.login.Logout() }
   ];
 
   admin = [
     { icon: 'po-icon-user', label: 'Account', action: () => this.route.navigate(['/account']) },
     { icon: 'po-icon-pallet-full', label: 'Panel', action: () => this.route.navigate(['/dashboard']) },
     { icon: 'po-icon-waiter', label: 'Admin', action: () => this.route.navigate(['/admin']) },
-    { icon: 'po-icon-exit', label: 'Exit', type: 'danger', separator: true, action: () => this.login.Logout() }
+    { icon: 'po-icon-exit', label: 'Sair', type: 'danger', separator: true, action: () => this.login.Logout() }
   ]
 
   constructor(private login: LoginServiceService, private route: Router) {

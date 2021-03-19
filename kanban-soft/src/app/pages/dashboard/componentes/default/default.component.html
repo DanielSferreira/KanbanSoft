@@ -1,15 +1,24 @@
 <po-container p-no-border="true" p-no-shadow="true" class="po-lg-6">
-    <po-widget p-height="100" routerLink="tasks" class="po-lg-4 po-sm-4 " p-title="Quadros Tarefas"></po-widget>
-    <po-widget p-height="100" routerLink="myTask" class="po-lg-4 po-mb-2 po-sm-4" p-title="Minhas Tarefas"></po-widget>
-    <po-widget p-height="100" routerLink="questions" class="po-lg-4 po-mb-2 po-sm-4" p-title="Fórum de dúvidas"></po-widget>
-    <po-widget p-height="400" class="po-lg-12 po-mb-2" p-title="Meus Dados"></po-widget>
+    <po-widget p-height="100" routerLink="tasks" class="po-lg-4 po-sm-4 " p-title="Task Board"></po-widget>
+    <po-widget p-height="100" routerLink="myTask" class="po-lg-4 po-mb-2 po-sm-4" p-title="My Tasks"></po-widget>
+    <po-widget p-height="100" routerLink="questions" class="po-lg-4 po-mb-2 po-sm-4" p-title="My Account">
+    </po-widget>
+    <po-widget p-no-shadow="true"  class="po-lg-12 po-mb-2" p-title="Charts of your activities">
+        <po-chart p-no-shadow="true" [p-series]="[
+    { label: 'À Fazer', data: ToDo },
+    { label: 'Fazendo', data: InProgress },
+    { label: 'Concluindo', data: Completed },
+  ]">
+        </po-chart>
+    </po-widget>
 </po-container>
 <po-container p-height="540" class="po-lg-6">
-    <h1>Atividades em Andamento</h1>
+    <h1>Tasks in progress</h1>
     <po-list-view p-property-title="title" [p-items]="list">
         <ng-template p-list-view-content-template let-item>
             <div class="po-row">
-                <po-info class="po-md-12" p-label="Data para entrega" [p-value]="item.trackDate | date:'hh:mm - dd/MM'"></po-info>
+                <po-info class="po-md-12" p-label="Delivery date" [p-value]="item.trackDate | date:'hh:mm - dd/MM'">
+                </po-info>
             </div>
         </ng-template>
     </po-list-view>
