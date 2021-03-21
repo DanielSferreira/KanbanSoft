@@ -24,6 +24,9 @@ export class ConApiService {
 
   public GetTasks() {
     return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  } 
+  public GetTask(id) {
+    return this.http.get<TaskTemplate>(this.configUrl + "Tasks/"+id, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
   public GetTasksByStatus(stats: number) {
     return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/getByStatus/" + stats, this.httpOptions).pipe(map(a => a), catchError(this.handleError));

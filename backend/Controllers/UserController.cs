@@ -28,6 +28,7 @@ namespace KanbanSoft.Controllers
                 name = x.name,
                 nick = x.nick,
                 email = x.email,
+                role = x.role,
             });
         }
         [HttpPost]
@@ -48,7 +49,8 @@ namespace KanbanSoft.Controllers
                     name = user.name,
                     nick = user.nick,
                     score = user.score,
-                    email = user.email
+                    email = user.email,
+                    role = user.role
                 });
             else
                 return BadRequest("Houve um erro ao buscar o usuario");
@@ -81,6 +83,15 @@ namespace KanbanSoft.Controllers
         {
             System.Console.WriteLine("A");
             userManager.Update(data);
+            return Ok(data);
+        }
+        [HttpPut("UpdatePasswordByAdmin")]
+        public ActionResult<User> UpdatePasswordByAdmin([FromBody] NewPassword data)
+        {
+            var user = userManager.GetEntity(data.id);
+            if(data.newPass != null || data.newPass != "")
+                user.pass = Crypt.Encrypt(data.newPass);
+            userManager.Update(user);
             return Ok(data);
         }
         [HttpDelete]

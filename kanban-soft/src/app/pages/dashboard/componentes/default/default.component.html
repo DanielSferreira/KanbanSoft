@@ -1,9 +1,21 @@
-<po-container p-no-border="true" p-no-shadow="true" class="po-lg-6">
-    <po-widget p-height="100" routerLink="tasks" class="po-lg-4 po-sm-4 " p-title="Task Board"></po-widget>
-    <po-widget p-height="100" routerLink="myTask" class="po-lg-4 po-mb-2 po-sm-4" p-title="My Tasks"></po-widget>
-    <po-widget p-height="100" routerLink="questions" class="po-lg-4 po-mb-2 po-sm-4" p-title="My Account">
-    </po-widget>
-    <po-widget p-no-shadow="true"  class="po-lg-12 po-mb-2" p-title="Charts of your activities">
+<po-container p-no-border="true" p-no-shadow="true" class="po-lg-6" routerLink="tasks">
+    <po-container class="po-lg-4 po-md-4 po-mb-3 ">
+        <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">Task Board<br>
+            <span class="po-icon po-icon-stock" style="font-size: 72pt; float: right;"></span>
+        </h4>
+    </po-container>
+    <po-container class="po-lg-4 po-md-4 po-mb-3 " routerLink="myTask">
+        <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">My Tasks<br>
+            <span class="po-icon po-icon-stock" style="font-size: 72pt; float: right;"></span>
+        </h4>
+    </po-container>
+    <po-container class="po-lg-4 po-md-4 po-mb-3 " routerLink="/account">
+        <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">Account<br>
+            <span class="po-icon po-icon-user" style="font-size: 72pt; float: right;"></span>
+        </h4>
+    </po-container>
+
+    <po-widget p-no-shadow="true" class="po-lg-12 po-mb-2" p-title="Charts of your activities">
         <po-chart p-no-shadow="true" [p-series]="[
     { label: 'À Fazer', data: ToDo },
     { label: 'Fazendo', data: InProgress },

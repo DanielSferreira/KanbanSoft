@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardChildService } from 'src/services/auth-guard-child.service';
+import { AuthGuardChildService } from 'src/roles/auth-guard-child.service';
 import { LoginComponent } from './pages/login/login.component';
-import { RoleGuardService } from '../services/role-guard.service'
+import { RoleGuardService } from 'src/roles/role-guard.service'
 import { AccountComponent } from './pages/account/account.component';
 
 const routes: Routes = [

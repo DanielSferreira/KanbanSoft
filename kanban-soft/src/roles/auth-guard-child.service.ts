@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { LoginModel, TokenModel } from 'src/interfaces/TaskTemplate';
-import { LoginServiceService } from './login-service.service';
+import { LoginServiceService } from './../services/login-service.service';
 
 @Injectable({
   providedIn: 'root'

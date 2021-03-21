@@ -23,6 +23,12 @@ namespace KanbanSoft.Controllers
         {
             return tasksManager.GetAll();
         }
+
+        [HttpGet("{id}")]
+        public Task getId(int id)
+        {
+            return tasksManager.GetEntity(id);
+        }
         [HttpGet("getByStatus/{s}")]
         public IEnumerable<Task> getByStatus(int s)
         {

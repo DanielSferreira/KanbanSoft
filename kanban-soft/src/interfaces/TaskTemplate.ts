@@ -12,14 +12,23 @@ export interface TaskTemplate {
 }
 
 export interface UserGet {
-  id:number,
+  id: number,
   name: string,
   nick: string,
   email: string,
   score: number
 }
+export interface UserPost {
+  id?: number,
+  name: string,
+  email: string,
+  pass: string,
+  nick: string,
+  score?: number,
+  role: string
+}
 export interface LoginModel {
-  login: string, 
+  login: string,
   password: string
 }
 export interface ErrorModel {

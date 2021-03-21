@@ -1,10 +1,10 @@
 <po-breadcrumb [p-items]="[
-{ label: 'Voltar ao Inicio', link: '../' },
-{ label: 'List Tasks ', link: '' },
-]">
+    { label: 'Back', link: '../' },
+    { label: 'List Collaborator', link: '' },
+  ]">
 </po-breadcrumb>
 <po-table [p-items]="items" [p-striped]="true" [p-columns]="columns">
     <ng-template p-table-cell-template let-column="abc" let-row="row">
-        <po-button p-label="Editar" (click)="edit(row.id)"></po-button>
+        <po-button p-label="Edit" (click)="edit(row.id)"></po-button>
       </ng-template>
 </po-table>

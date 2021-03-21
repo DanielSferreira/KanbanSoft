@@ -1,1 +1,22 @@
-<p>EITA!</p>
+<po-breadcrumb [p-items]="[
+    { label: 'Back to panel', link: '../dashboard' },
+    { label: 'Admin Control', link: '' },
+  ]">
+</po-breadcrumb>
+<h2 class="po-font-subtitle po-mb-3 po-mt-1 po-ml-2">Actions for admins</h2>
+
+<po-container class="po-lg-4 po-md-4 po-mb-3 " routerLink="newColab">
+    <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">New Collaborator<br>
+        <span class="po-icon po-icon-user-add" style="font-size: 72pt; float: right;"></span>
+    </h4>
+</po-container>
+<po-container class="po-lg-4 po-md-4 po-mb-3 " routerLink="listColab">
+    <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">Collaborators<br>
+        <span class="po-icon po-icon-users" style="font-size: 72pt; float: right;"></span>
+    </h4>
+</po-container>
+<po-container class="po-lg-4 po-md-4 po-mb-3 " routerLink="tasks">
+    <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">View All Tasks<br>
+        <span class="po-icon po-icon-stock" style="font-size: 72pt; float: right;"></span>
+    </h4>
+</po-container>
