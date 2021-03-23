@@ -22,9 +22,9 @@ export class ViewTasksComponent implements OnInit {
   }
 
   columns = [
-    { property: 'title', label: 'Name' },
-    { property: 'description', label: 'Nick name' },
-    { property: 'dateRelease', label: 'E-mail' },
+    { property: 'title', label: 'Title' },
+    { property: 'status', label: 'Status', type: 'columnTemplate' },
+    { property: 'dateRelease', label: 'Creation Date', type: 'columnTemplate' },
     { property: 'abc', label: 'Actions', type: 'cellTemplate' },
   ];
   

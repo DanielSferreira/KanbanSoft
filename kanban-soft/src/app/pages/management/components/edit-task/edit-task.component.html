@@ -1,14 +1,13 @@
 <po-breadcrumb [p-items]="[
-{ label: 'Voltar', link: '../tasks' },
+{ label: 'Back', link: '../tasks' },
 { label: 'Edit Task', link: '' },
   ]">
 </po-breadcrumb>
 <form [formGroup]="formEdit" (ngSubmit)="onSubmit()">
-{{formEdit.controls['data'].value |date}}
     <po-input class="po-md-6" p-label="Titulo" p-auto-focus="true" p-minlength="20" formControlName="title" p-required>
     </po-input>
-    <po-datepicker formControlName  ="data" class="po-md-3" name="minDate" p-clean p-label="Data para entrega"
-        [p-min-date]="formEdit.controls['data'].value" [p-max-date]="dateLimit">
+    <po-datepicker [formControl]="formEdit.controls['date']" class="po-md-3" name="minDate" p-clean p-label="Data para entrega"
+        [p-min-date]="date" [p-max-date]="dateLimit">
     </po-datepicker>
     <po-select class="po-md-3" p-required p-label="Horario de Entrega" [p-options]="ListaDeHorario"
         formControlName="hora">

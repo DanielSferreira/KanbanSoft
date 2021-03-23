@@ -24,6 +24,7 @@ import { PoModalModule } from '@po-ui/ng-components';
 import { PoGridModule } from '@po-ui/ng-components';
 import { ToolBarComponent } from './shared/tool-bar/tool-bar.component';
 import { PoChartModule } from '@po-ui/ng-components';
+import { PoDialogModule } from '@po-ui/ng-components';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { PoChartModule } from '@po-ui/ng-components';
     PoModalModule,
     PoGridModule,
     PoChartModule,
+    PoDialogModule,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -24,7 +24,7 @@ export class MyTasksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.list.toPromise().then(x => this.items = x.map(d => d));
+    this.list.toPromise().then(x => this.items = x.filter(d => d.status == 1 || d.status == 2));
     this.list.subscribe();
   }
 
@@ -38,13 +38,12 @@ export class MyTasksComponent implements OnInit {
   finaliza(row: TaskTemplate) {
 
     row.status = 4;
-    console.log(row);
-    this.user.UpdateScore({ id: row.id, score: row.level, type: "REMOVE" }).subscribe(
-      () => this.con.PutTasks(row).subscribe(
-        e => console.log(e), err => console.log(err)),
+    this.con.AddTasktoUser(row).subscribe(
+      e => console.log(e),
       err => console.log(err)
-
     )
+
+    
   }
 
 }

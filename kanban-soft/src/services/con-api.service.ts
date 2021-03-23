@@ -56,6 +56,38 @@ export class ConApiService {
 
     }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
+  public AddTasktoUser(item: TaskTemplate) {
+
+    return this.http.put<TaskTemplate>(this.configUrl + "Tasks/AddTasktoUser", {
+      id: item.id,
+      idUser: item.idUser,
+      name: item.name,
+      title: item.title,
+      description: item.description,
+      status: item.status,
+      dateRelease: item.dateRelease,
+      trackDate: item.trackDate,
+      deliveryDate: item.deliveryDate,
+      level: item.level
+
+    }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+  public UpdateTaskByAdmin(item: TaskTemplate) {
+
+    return this.http.put<TaskTemplate>(this.configUrl + "Tasks/UpdateTaskByAdmin", {
+      id: item.id,
+      idUser: item.idUser,
+      name: item.name,
+      title: item.title,
+      description: item.description,
+      status: item.status,
+      dateRelease: item.dateRelease,
+      trackDate: item.trackDate,
+      deliveryDate: item.deliveryDate,
+      level: item.level
+
+    }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
 
   public PostTasks(item) {
     return this.http.post<TaskTemplate>(this.configUrl + "Tasks/", {

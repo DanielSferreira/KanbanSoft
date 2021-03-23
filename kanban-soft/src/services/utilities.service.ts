@@ -26,8 +26,15 @@ export class UtilitiesService {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate([uri]));
   }
+  public myNavigate(uri: string) {
+      this.router.navigate([uri]);
+  }
   public DateInFormatUTC(date: Date) {
     return this.dateFormat(date) + "T" + this.hourFormat(date);
+  }
+  public DateHourFormatUTC(date, hour) {
+    date = new Date(date);
+    return this.dateFormat(date) + "T" + hour;
   }
 
   

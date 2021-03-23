@@ -5,7 +5,7 @@ export interface TaskTemplate {
   title: string,
   description: string,
   status: number,
-  dateRelease: any,
+  dateRelease: string,
   trackDate: any,
   deliveryDate: any,
   level: number,

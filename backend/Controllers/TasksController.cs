@@ -12,10 +12,12 @@ namespace KanbanSoft.Controllers
     {
 
         IDataRepository<Task> tasksManager;
+        IDataRepository<User> usersManager;
 
         public TasksController(AppDB db)
         {
             tasksManager = new TasksManager(db);
+            usersManager = new UserManager(db);
         }
 
         [HttpGet]
@@ -37,7 +39,7 @@ namespace KanbanSoft.Controllers
         [HttpGet("getDispTasks")]
         public IEnumerable<Task> getDispTasks()
         {
-            return tasksManager.GetAll().Where(e => e.Status == 0 || e.Status == 1 || e.Status == 2);
+            return tasksManager.GetAll().Where(e => e.Status != 4);
         }
         [HttpGet("getByUser/{s}")]
         public IEnumerable<Task> getByUser(int s)
@@ -57,6 +59,49 @@ namespace KanbanSoft.Controllers
         public ActionResult<Task> Put([FromBody] Task data)
         {
             tasksManager.Update(data);
+            return Ok(data);
+        }
+        [HttpPut("UpdateTaskByAdmin")]
+        public ActionResult<Task> UpdateTaskByAdmin([FromBody] Task data)
+        {
+            var user = usersManager.GetEntity(data.IdUser);
+            int prevScore = tasksManager.GetEntity(data.Id).Level;
+            if (data.Status == 1)
+                user.score -= prevScore;
+            data.IdUser = 0;
+            data.Status = 0;
+            usersManager.Update(user);
+            tasksManager.Update(data);
+            return Ok(data);
+        }
+        [HttpPut("AddTasktoUser")]
+        public ActionResult<Task> AddTasktoUser([FromBody] Task data)
+        {
+            var user = usersManager.GetEntity(data.IdUser);
+            System.Console.WriteLine($" {user.score} - {data.Level} Status: {data.Status}");
+            if (user.score + data.Level > 7 && data.Status == 1)
+            {
+                System.Console.WriteLine($"SOMA");
+                return BadRequest("dados para soma passam do permitido");
+            }
+            else if (data.Status != 1 && user.score - data.Level < 0)
+            {
+                System.Console.WriteLine($"SUBT");
+                return BadRequest("dados para subtração passam do permitido");
+            }
+
+            else
+            {
+                System.Console.WriteLine($"PASSA");
+                if (data.Status == 1)
+                    user.score += data.Level;
+                else
+                    user.score -= data.Level;
+
+                usersManager.Update(user);
+                tasksManager.Update(data);
+            }
+
             return Ok(data);
         }
         [HttpDelete]
