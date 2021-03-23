@@ -1,0 +1,22 @@
+<po-breadcrumb [p-items]="[
+{ label: 'Back', link: '../' },
+{ label: 'List Tasks ', link: '' },
+]">
+</po-breadcrumb>
+<po-table [p-items]="items" [p-striped]="true" [p-columns]="columns">
+  <ng-template p-table-column-template p-property="dateRelease" let-row>
+    {{row | date:'yyyy-MM-dd'}}
+  </ng-template>
+
+  <ng-template p-table-column-template p-property="status" let-row>
+    <span *ngIf="row === -1">To do</span>
+    <span *ngIf="row === 0">To do</span>
+    <span *ngIf="row === 1">Doing</span>
+    <span *ngIf="row === 2">Finalized</span>
+    <span *ngIf="row === 4">Hidden</span>
+    
+  </ng-template>
+  <ng-template p-table-cell-template let-column="abc" let-row="row">
+    <po-button p-label="Editar" (click)="edit(row.id)"></po-button>
+  </ng-template>
+</po-table>

@@ -13,10 +13,13 @@ namespace KanbanSoft.Controllers
     {
 
         IDataRepository<User> userManager;
+        IDataRepository<Task> tasksManager;
+
 
         public UserController(AppDB db)
         {
             userManager = new UserManager(db);
+            tasksManager = new TasksManager(db);
         }
 
         [HttpGet]
@@ -28,6 +31,7 @@ namespace KanbanSoft.Controllers
                 name = x.name,
                 nick = x.nick,
                 email = x.email,
+                role = x.role,
             });
         }
         [HttpPost]
@@ -48,7 +52,8 @@ namespace KanbanSoft.Controllers
                     name = user.name,
                     nick = user.nick,
                     score = user.score,
-                    email = user.email
+                    email = user.email,
+                    role = user.role
                 });
             else
                 return BadRequest("Houve um erro ao buscar o usuario");
@@ -56,13 +61,15 @@ namespace KanbanSoft.Controllers
         [HttpPut("updateScore/{id}/{score}/{type}")]
         public ActionResult<User> UpdateScore(int id, int score, string type)
         {
+
+            //novo
+            int tasksUsers = tasksManager.GetAll().Where(x => x.IdUser == id && x.Status == 1).Select(x => x.Level).Sum();
+            System.Console.WriteLine(tasksUsers);
+            //Antigo
             var user = userManager.GetEntity(id);
-            if(type == "REMOVE" && user.score >=0)
-                user.score -= score;
-            if(type == "ADD" && user.score <=8)
-                user.score += score;
-            if(user.score <0 || user.score >=8)
+            if (user.score + tasksUsers < 0 || user.score + tasksUsers >= 8)
                 return BadRequest("Não Foi Possível Fazer o Update do score user, pelo fato de ser maior que o permitido ou menor que 0");
+            user.score = tasksUsers;
             userManager.Update(user);
             if (user != null)
                 return Ok(new
@@ -81,6 +88,15 @@ namespace KanbanSoft.Controllers
         {
             System.Console.WriteLine("A");
             userManager.Update(data);
+            return Ok(data);
+        }
+        [HttpPut("UpdatePasswordByAdmin")]
+        public ActionResult<User> UpdatePasswordByAdmin([FromBody] NewPassword data)
+        {
+            var user = userManager.GetEntity(data.id);
+            if (data.newPass != null || data.newPass != "")
+                user.pass = Crypt.Encrypt(data.newPass);
+            userManager.Update(user);
             return Ok(data);
         }
         [HttpDelete]

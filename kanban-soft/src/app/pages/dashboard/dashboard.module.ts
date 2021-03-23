@@ -13,7 +13,7 @@ import { QuestionsComponent } from './componentes/questions/questions.component'
 import { ColunaGradeComponent } from './shared/coluna-grade/coluna-grade.component';
 
 import { PoContainerModule, PoModule, PoListViewModule, PoPageModule } from '@po-ui/ng-components';
-import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
+import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { PoTabsModule } from '@po-ui/ng-components';
 import { PoBreadcrumbModule } from '@po-ui/ng-components';
 import { PoFieldModule } from '@po-ui/ng-components';
@@ -22,7 +22,9 @@ import { PoTableModule } from '@po-ui/ng-components';
 import { PoTagModule } from '@po-ui/ng-components';
 import { PoModalModule } from '@po-ui/ng-components';
 import { PoGridModule } from '@po-ui/ng-components';
-import { ToolBarComponent } from 'src/app/shared/tool-bar/tool-bar.component';
+import { ToolBarComponent } from './shared/tool-bar/tool-bar.component';
+import { PoChartModule } from '@po-ui/ng-components';
+import { PoDialogModule } from '@po-ui/ng-components';
 
 @NgModule({
   declarations: [
@@ -39,9 +41,9 @@ import { ToolBarComponent } from 'src/app/shared/tool-bar/tool-bar.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    DashboardRoutingModule,
     PoModule,
     PoContainerModule,
-    PoPageLoginModule,
     PoTemplatesModule,
     PoListViewModule,
     PoPageModule,
@@ -52,8 +54,9 @@ import { ToolBarComponent } from 'src/app/shared/tool-bar/tool-bar.component';
     PoTagModule,
     PoTableModule,
     PoModalModule,
-    DashboardRoutingModule,
     PoGridModule,
+    PoChartModule,
+    PoDialogModule,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

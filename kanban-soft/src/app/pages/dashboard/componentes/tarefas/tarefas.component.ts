@@ -6,6 +6,7 @@ import { TaskTemplate, UserGet } from 'src/interfaces/TaskTemplate';
 import { UtilitiesService } from 'src/services/utilities.service';
 import { LoginServiceService } from 'src/services/login-service.service';
 import { UserService } from 'src/services/user.service';
+import { PoDialogService } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-tarefas',
@@ -15,6 +16,7 @@ import { UserService } from 'src/services/user.service';
 export class TarefasComponent implements OnInit {
 
   constructor(
+    private pAlert: PoDialogService,
     private a: ConApiService,
     private helper: UtilitiesService,
     private users: UserService,
@@ -61,18 +63,11 @@ export class TarefasComponent implements OnInit {
       res = this._corrigirTarefa(item);
 
     this.FilterLista();
-    let type = "";
-    if (item.lista === "Para Fazer" || item.lista === "Já concluido")
-      type = "ADD";
-    if (item.lista === "Sendo Feito")
-      type = "REMOVE";
 
-    this.users.UpdateScore({ id: this.user.id, score: res.level, type: type }).subscribe(e => {
-      this.user.score = e.score;
-      this.a.PutTasks(res).subscribe(() =>
-        this.helper.redirectTo("dashboard/tasks")
+      this.a.AddTasktoUser(res).subscribe(
+        () => this.helper.redirectTo("dashboard/tasks"),
+        err => this.pAlert.alert({ title: 'Erro', message: 'Não é possivel passar do limite' })
       )
-    }, () => alert("e"))
 
   }
 
@@ -97,7 +92,7 @@ export class TarefasComponent implements OnInit {
 
     return {
       id: help.id,
-      idUser: -1,
+      idUser: this.user.id,
       name: help.name,
       title: help.title,
       description: help.description,

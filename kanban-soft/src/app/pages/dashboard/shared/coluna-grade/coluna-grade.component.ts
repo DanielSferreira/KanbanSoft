@@ -12,7 +12,7 @@ export class ColunaGradeComponent implements OnInit {
   constructor(private con: ConApiService) {
     this.con.GetUser().subscribe(x => this.users = x);
   }
-  
+
   users: UserGet[];
   dateFormat = "'as' hh:mm 'em' dd/MM";
 
@@ -27,9 +27,9 @@ export class ColunaGradeComponent implements OnInit {
     if (sts === 2)
       return "Necessário"
     else if (sts === 5)
-    return "Importante"
+      return "Importante"
     else if (sts === 7)
-    return "Urgente"
+      return "Urgente"
   }
   getUserData(idUser: number) {
     let user: UserGet;

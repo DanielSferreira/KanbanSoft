@@ -5,21 +5,30 @@ export interface TaskTemplate {
   title: string,
   description: string,
   status: number,
-  dateRelease: any,
+  dateRelease: string,
   trackDate: any,
   deliveryDate: any,
   level: number,
 }
 
 export interface UserGet {
-  id:number,
+  id: number,
   name: string,
   nick: string,
   email: string,
   score: number
 }
+export interface UserPost {
+  id?: number,
+  name: string,
+  email: string,
+  pass: string,
+  nick: string,
+  score?: number,
+  role: string
+}
 export interface LoginModel {
-  login: string, 
+  login: string,
   password: string
 }
 export interface ErrorModel {

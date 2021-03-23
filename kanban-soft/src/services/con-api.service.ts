@@ -24,6 +24,9 @@ export class ConApiService {
 
   public GetTasks() {
     return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/", this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  } 
+  public GetTask(id) {
+    return this.http.get<TaskTemplate>(this.configUrl + "Tasks/"+id, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
   public GetTasksByStatus(stats: number) {
     return this.http.get<TaskTemplate[]>(this.configUrl + "Tasks/getByStatus/" + stats, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
@@ -40,6 +43,38 @@ export class ConApiService {
   public PutTasks(item: TaskTemplate) {
 
     return this.http.put<TaskTemplate>(this.configUrl + "Tasks/", {
+      id: item.id,
+      idUser: item.idUser,
+      name: item.name,
+      title: item.title,
+      description: item.description,
+      status: item.status,
+      dateRelease: item.dateRelease,
+      trackDate: item.trackDate,
+      deliveryDate: item.deliveryDate,
+      level: item.level
+
+    }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+  public AddTasktoUser(item: TaskTemplate) {
+
+    return this.http.put<TaskTemplate>(this.configUrl + "Tasks/AddTasktoUser", {
+      id: item.id,
+      idUser: item.idUser,
+      name: item.name,
+      title: item.title,
+      description: item.description,
+      status: item.status,
+      dateRelease: item.dateRelease,
+      trackDate: item.trackDate,
+      deliveryDate: item.deliveryDate,
+      level: item.level
+
+    }, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+  public UpdateTaskByAdmin(item: TaskTemplate) {
+
+    return this.http.put<TaskTemplate>(this.configUrl + "Tasks/UpdateTaskByAdmin", {
       id: item.id,
       idUser: item.idUser,
       name: item.name,
