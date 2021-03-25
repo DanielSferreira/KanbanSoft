@@ -1,13 +1,13 @@
 <po-breadcrumb [p-items]="[
-    { label: 'Voltar ao Inicio', link: '../' },
+    { label: 'Back', link: '../' },
     { label: 'Tasks', link: 'tasks' }
   ]">
 </po-breadcrumb>
 <po-tabs>
-    <po-tab p-active="true" p-label="Tarefas Abertas">
+    <po-tab p-active="true" p-label="Tasks Open board">
         <app-tarefas></app-tarefas>
     </po-tab>
-    <po-tab p-label="Nova Tarefa">
+    <po-tab p-label="New Task">
         <nova-tarefa></nova-tarefa>
     </po-tab>
 </po-tabs>

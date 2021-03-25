@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PoChartType } from '@po-ui/ng-components';
 import { TaskTemplate } from 'src/interfaces/TaskTemplate';
 import { ConApiService } from 'src/services/con-api.service';
 import { LoginServiceService } from 'src/services/login-service.service';
@@ -16,12 +17,14 @@ export class DefaultComponent implements OnInit {
   ) {
     this.user = this.login.GetUser();
   }
-
+  
   user: number
   list: TaskTemplate[];
   ToDo: number = 0;
-  InProgress: number = 0;
+  InProgress: number = 1;
   Completed: number = 0;
+
+  a = PoChartType.Line;
 
   ngOnInit(): void {
     this.con.GetTasksByUser(this.user).subscribe(x => {

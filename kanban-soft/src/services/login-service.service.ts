@@ -39,7 +39,13 @@ export class LoginServiceService {
     return Cookies.get('token') !== undefined;
   }
   public Decode(): TokenData {
-    return decode(Cookies.get('token'));
+    let res = Cookies.get('token');
+    if (res === undefined)
+      return {role: "Error",unique_name:""}
+
+    
+
+    return decode(res);
   }
   public GetUser(): number {
     return Cookies.get('user') !== undefined ? parseInt(Cookies.get('user')) : 0;

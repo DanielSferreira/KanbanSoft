@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TaskTemplate } from 'src/interfaces/TaskTemplate';
 import { ConApiService } from 'src/services/con-api.service';
@@ -14,7 +14,7 @@ export class MyTasksComponent implements OnInit {
 
   list: Observable<TaskTemplate[]>;
   items;
-
+@ViewChild("modalCaution") modalCaution;
   constructor(
     private con: ConApiService,
     private login: LoginServiceService,
@@ -37,11 +37,16 @@ export class MyTasksComponent implements OnInit {
 
   finaliza(row: TaskTemplate) {
 
-    row.status = 4;
-    this.con.AddTasktoUser(row).subscribe(
-      e => console.log(e),
-      err => console.log(err)
-    )
+    if(row.status === 2){
+      row.status = 4;
+      this.con.AddTasktoUser(row).subscribe(
+        e => console.log(e),
+        err => console.log(err)
+      )
+    } else {
+      this.modalCaution.open();
+    }
+    
 
     
   }

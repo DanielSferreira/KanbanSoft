@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { TimeList, UrgentList } from 'src/interfaces/OptionsToSelectsForm';
 import { ErrorModel } from 'src/interfaces/TaskTemplate';
 import { ConApiService } from 'src/services/con-api.service';
 import { UtilitiesService } from 'src/services/utilities.service';
@@ -18,26 +19,9 @@ export class NewTaskComponent implements OnInit {
 
   @ViewChild("modal") meuModal;
 
-  ListaDeHorario = [
-    { label: '08:00', value: '08:00' },
-    { label: '09:00', value: '09:00' },
-    { label: '10:00', value: '10:00' },
-    { label: '11:00', value: '11:00' },
-    { label: '12:00', value: '12:00' },
-    { label: '13:00', value: '13:00' },
-    { label: '14:00', value: '14:00' },
-    { label: '15:00', value: '15:00' },
-    { label: '16:00', value: '16:00' },
-    { label: '17:00', value: '17:00' },
-    { label: '18:00', value: '18:00' },
-    { label: '19:00', value: '19:00' }
-  ];
+  timeList = TimeList;
 
-  ListaImportancia = [
-    { label: 'Necessário', value: '2' },
-    { label: 'Importante', value: '5' },
-    { label: 'Urgente', value: '7' }
-  ];
+  urgentList = UrgentList;
 
   resErro: ErrorModel = {
     statusCode: 0,

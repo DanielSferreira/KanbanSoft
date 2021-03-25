@@ -6,14 +6,12 @@
 <form [formGroup]="formEdit" (ngSubmit)="onSubmit()">
     <po-input class="po-md-6" p-label="Titulo" p-auto-focus="true" p-minlength="20" formControlName="title" p-required>
     </po-input>
-    <po-datepicker [formControl]="formEdit.controls['date']" class="po-md-3" name="minDate" p-clean p-label="Data para entrega"
-        [p-min-date]="date" [p-max-date]="dateLimit">
+    <po-datepicker [formControl]="formEdit.controls['date']" class="po-md-3" name="minDate" p-clean
+        p-label="Data para entrega" [p-min-date]="date" [p-max-date]="dateLimit">
     </po-datepicker>
-    <po-select class="po-md-3" p-required p-label="Horario de Entrega" [p-options]="ListaDeHorario"
-        formControlName="hora">
+    <po-select class="po-md-3" p-required p-label="Horario de Entrega" [p-options]="timeList" formControlName="hora">
     </po-select>
-    <po-select class="po-md-2" p-required p-label="Grau Importância" [p-options]="ListaImportancia"
-        formControlName="level">
+    <po-select class="po-md-2" p-required p-label="Grau Importância" [p-options]="urgentList" formControlName="level">
     </po-select>
     <po-textarea p-minlength="30" p-required class="po-lg-10" name="Descrição" p-label="Descrição"
         formControlName="description">

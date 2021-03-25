@@ -13,13 +13,13 @@
         <po-button p-label="Confirm new Password" p-type="primary" [p-disabled]="!formEdit.valid" (p-click)='newPass(pass.value,cPass.value)'></po-button>
     </po-modal>
     <input type="hidden" formControlName="id">
-    <po-input class="po-lg-4" p-label="Nome Colaborador" formControlName="name"></po-input>
+    <po-input class="po-lg-4" p-label="Colab. Nane" formControlName="name"></po-input>
     <po-input class="po-lg-4" p-label="E-mail" formControlName="email"></po-input>
     
     
-    <po-input class="po-lg-4" p-label="Apelido" formControlName="nick"></po-input>
+    <po-input class="po-lg-4" p-label="Nick Name" formControlName="nick"></po-input>
 
-    <po-select class="po-lg-4" p-label="Nível de Acesso"
+    <po-select class="po-lg-4" p-label="Acess Name"
         formControlName="role"
         [p-options]="[{label:'Usuário Comum',value:'normal'},{label:'Adminstrador',value:'admin'}]">
     </po-select>

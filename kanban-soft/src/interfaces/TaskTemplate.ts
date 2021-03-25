@@ -16,7 +16,8 @@ export interface UserGet {
   name: string,
   nick: string,
   email: string,
-  score: number
+  score: number,
+  active: any
 }
 export interface UserPost {
   id?: number,
@@ -25,7 +26,8 @@ export interface UserPost {
   pass: string,
   nick: string,
   score?: number,
-  role: string
+  role: string,
+  active: any
 }
 export interface LoginModel {
   login: string,

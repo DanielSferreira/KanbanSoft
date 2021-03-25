@@ -3,6 +3,36 @@
     <po-container p-no-border="true" p-no-shadow="true" class="po-lg-1 "></po-container>
 
     <po-container class="po-lg-10">
-        <router-outlet></router-outlet>
+        <po-breadcrumb [p-items]="[
+        { label: 'Back', link: '../dashboard'},
+        { label: 'Edit User', link: '' },
+      ]">
+        </po-breadcrumb>
+        <form [formGroup]="formEdit" (ngSubmit)="Edit()">
+            <po-modal #modal p-title="Change Password">
+
+                <div class="po-mt-1 po-font-text-large-bold">Comfirm Actual Password</div>
+                <input class="po-mb-2 po-p-2 po-lg-12" type="password" #aPass />
+
+                <div class="po-mt-1 po-font-text-large-bold">New Password</div>
+                <input class="po-mb-2 po-p-2 po-lg-12" type="password" #pass />
+                <div class="po-font-text-large-bold">Comfirm New Password</div>
+                <input class="po-mb-2 po-p-2 po-lg-12" type="password" #cPass />
+                <po-button p-label="Confirm new Password" p-type="primary" [p-disabled]="!formEdit.valid"
+                    (p-click)='newPass(aPass.value, pass.value,cPass.value)'></po-button>
+            </po-modal>
+            <div class="po-ml-5 po-mr-5 po-mt-3">
+                <input type="hidden" formControlName="id">
+                <po-input p-label="Colab. Name" formControlName="name"></po-input>
+                <po-input p-label="E-mail" formControlName="email"></po-input>
+                <po-input p-label="Nick Name" formControlName="nick"></po-input>
+                <input type="hidden" formControlName="role">
+            </div>
+            <div class="po-lg-12">
+                <po-button p-label="New Password" p-type="link" class="po-mr-2" (p-click)='OpenModalPass()'></po-button>
+                <po-button p-label="Save" p-type="primary" [p-disabled]="!formEdit.valid" (p-click)='Edit()'>
+                </po-button>
+            </div>
+        </form>
     </po-container>
 </po-page-default>

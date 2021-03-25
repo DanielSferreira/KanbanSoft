@@ -20,7 +20,8 @@ export class AddCollaboratorComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.min(15), Validators.email]),
       pass: new FormControl("", [Validators.required, Validators.min(8)]),
       nick: new FormControl("", [Validators.required, Validators.min(5),Validators.max(15)]),
-      role: new FormControl("", [Validators.required])
+      role: new FormControl("", [Validators.required]),
+      active: new FormControl("")
     });
 
   }
@@ -38,6 +39,7 @@ export class AddCollaboratorComponent implements OnInit {
       pass: this.formUser.controls["pass"].value,
       nick: this.formUser.controls["nick"].value,
       role: this.formUser.controls["role"].value,
+      active: this.formUser.controls["active"].value,
     }
 
     this.user.post(data).subscribe(e => console.log(e))

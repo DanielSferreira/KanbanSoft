@@ -16,7 +16,12 @@
         <h4><b>Data que foi pego: </b>{{row.dateRelease | date:"dd/MM/yyyy - HH:mm"}}</h4>
       </div>
     </po-modal>
-    <po-button p-label="Editar" (click)="modal.open()"></po-button>
-    <po-button p-label="Finalizar" (click)="finaliza(row)"></po-button>
+    <po-button p-label="Details" (click)="modal.open()"></po-button>
+    <po-button p-label="Arquived" (click)="finaliza(row)"></po-button>
   </ng-template>
 </po-table>
+<po-modal #modalCaution p-title="Atenção">
+  <div style="margin-left: 35px;">
+    <h3 style="margin-bottom: 15px; font-size: 14pt;"> It is not possible to archive a task in progress. </h3>
+  </div>
+</po-modal>

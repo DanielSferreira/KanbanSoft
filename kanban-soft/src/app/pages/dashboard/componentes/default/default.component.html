@@ -1,5 +1,5 @@
-<po-container p-no-border="true" p-no-shadow="true" class="po-lg-6" routerLink="tasks">
-    <po-container class="po-lg-4 po-md-4 po-mb-3 ">
+<po-container p-no-border="true" p-no-shadow="true" class="po-lg-6">
+    <po-container class="po-lg-4 po-md-4 po-mb-3 "  routerLink="tasks">
         <h4 class="po-p-3 po-pb-5 po-pt-1 po-pl-1 po-font-text-large-bold">Task Board<br>
             <span class="po-icon po-icon-stock" style="font-size: 72pt; float: right;"></span>
         </h4>
@@ -16,11 +16,9 @@
     </po-container>
 
     <po-widget p-no-shadow="true" class="po-lg-12 po-mb-2" p-title="Charts of your activities">
-        <po-chart p-no-shadow="true" [p-series]="[
-    { label: 'À Fazer', data: ToDo },
-    { label: 'Fazendo', data: InProgress },
-    { label: 'Concluindo', data: Completed },
-  ]">
+        <po-chart p-no-shadow="false" title="OBa" p-type="column" [p-series]="[
+        {data: [InProgress],label: ['Working'],color:'#f875aa'},
+        {data: [Completed],label: ['Completed'],color:'#f1d1d0'}]">
         </po-chart>
     </po-widget>
 </po-container>

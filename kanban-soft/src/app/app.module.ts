@@ -10,17 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { PoContainerModule, PoModule, PoListViewModule, PoPageModule } from '@po-ui/ng-components';
 import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
 import { PoToolbarModule } from '@po-ui/ng-components';
-import { AccountComponent } from './pages/account/account.component';
-import { AccountBarComponent } from './pages/account/shared/tool-bar/tool-account.component';
 import { ToolBarComponent } from "./shared/tool-bar/tool-bar.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AccountComponent,
     ToolBarComponent,
-    AccountBarComponent
   ],
   imports: [
     BrowserModule,

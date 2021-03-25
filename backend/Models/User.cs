@@ -15,5 +15,6 @@ namespace KanbanSoft.Models
         public string nick { get; set; }
         public int score { get; set; }
         public string role { get; set; }
+        public bool active { get; set; }
     }
 }

@@ -23,6 +23,9 @@ export class UserService {
   public GetUser(id: number) {
     return this.http.post<UserGet>(`${this.configUrl}User/${id}`, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
+  public DeactivateUser(id: number) {
+    return this.http.put<string>(`${this.configUrl}User/Deactivate/`+id, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
   public GetUsers() {
     return this.http.get<UserGet[]>(`${this.configUrl}User/`, this.httpOptions).pipe(map(a => a), catchError(this.handleError));
   }
@@ -34,6 +37,15 @@ export class UserService {
     return this.http.put<UserGet>(`${this.configUrl}User/UpdatePasswordByAdmin/`,
       {
         id: data.id,
+        newPass: data.newPass
+      },
+    this.httpOptions).pipe(map(a => a), catchError(this.handleError));
+  }
+  public UpdatePasswordByUser(data) {
+    return this.http.put<UserGet>(`${this.configUrl}User/UpdatePasswordByAdmin/`,
+      {
+        id: data.id,
+        prevPass: data.prevPass,
         newPass: data.newPass
       },
     this.httpOptions).pipe(map(a => a), catchError(this.handleError));

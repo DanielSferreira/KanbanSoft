@@ -3,11 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardChildService } from 'src/roles/auth-guard-child.service';
 import { LoginComponent } from './pages/login/login.component';
 import { RoleGuardService } from 'src/roles/role-guard.service'
-import { AccountComponent } from './pages/account/account.component';
+import { AuthAdminGuardService } from 'src/roles/auth-admin-guard.service';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "account", component: AccountComponent },
   {
     path: "",
     redirectTo: 'login',
@@ -21,9 +20,13 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    canActivateChild: [AuthGuardChildService],
-    canActivate: [RoleGuardService],
+    canActivateChild: [AuthAdminGuardService],
     loadChildren: () => import("./pages/management/management.module").then(m => m.ManagementModule)
+  },
+  {
+    path: "account",
+    canActivate: [RoleGuardService],
+    loadChildren: () => import("./pages/account/account.module").then(m => m.AccountModule)
   }
 ];
 

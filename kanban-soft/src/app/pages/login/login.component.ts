@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { LoginModel } from 'src/interfaces/TaskTemplate';
 import { AuthGuardChildService } from 'src/roles/auth-guard-child.service';
-import { AuthGuardService } from 'src/roles/auth-guard.service';
 import { LoginServiceService } from 'src/services/login-service.service';
 
 @Component({
@@ -10,15 +9,12 @@ import { LoginServiceService } from 'src/services/login-service.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   constructor(private loginService: LoginServiceService, private authC: AuthGuardChildService, private route: Router) {
   }
-  ngOnInit(): void {
-  }
-  contactEmail = "";
+
   abrir(log: LoginModel) {
-    console.log(log);
 
     this.loginService.login(log).subscribe(x => {
       this.authC.Activate(x);

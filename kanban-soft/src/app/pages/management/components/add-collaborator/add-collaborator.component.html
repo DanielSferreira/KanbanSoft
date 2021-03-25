@@ -4,12 +4,12 @@
   ]">
 </po-breadcrumb>
 <form [formGroup]="formUser" (ngSubmit)='onSubmit()' >
-    <po-input class="po-lg-4" p-label="Nome Colaborador" formControlName="name"></po-input>
+    <po-input class="po-lg-4" p-label="Colab. Name" formControlName="name"></po-input>
     <po-input class="po-lg-4" p-label="E-mail" formControlName="email"></po-input>
-    <po-password class="po-lg-4" p-label="Senha" formControlName="pass"></po-password>
-    <po-input class="po-lg-4" p-label="Apelido" formControlName="nick"></po-input>
+    <po-password class="po-lg-4" p-label="Password" formControlName="pass"></po-password>
+    <po-input class="po-lg-4" p-label="Nick Name" formControlName="nick"></po-input>
 
-    <po-select class="po-lg-4" p-label="Nível de Acesso"
+    <po-select class="po-lg-4" p-label="Acess Level"
         formControlName="role"
         [p-options]="[{label:'Usuário Comum',value:'normal'},{label:'Adminstrador',value:'admin'}]">
     </po-select>

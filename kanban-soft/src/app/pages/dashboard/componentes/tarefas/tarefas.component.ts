@@ -33,6 +33,7 @@ export class TarefasComponent implements OnInit {
     email:"",
     name:"",
     nick:"",
+    active:"",
     score:0
   };
 
@@ -66,7 +67,7 @@ export class TarefasComponent implements OnInit {
 
       this.a.AddTasktoUser(res).subscribe(
         () => this.helper.redirectTo("dashboard/tasks"),
-        err => this.pAlert.alert({ title: 'Erro', message: 'Não é possivel passar do limite' })
+        () => this.pAlert.alert({ title: 'Erro', message: 'Não é possivel passar do limite' })
       )
 
   }

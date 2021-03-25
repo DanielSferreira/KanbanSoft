@@ -3,8 +3,10 @@
     { label: 'List Collaborator', link: '' },
   ]">
 </po-breadcrumb>
+
 <po-table [p-items]="items" [p-striped]="true" [p-columns]="columns">
-    <ng-template p-table-cell-template let-column="abc" let-row="row">
-        <po-button p-label="Edit" (click)="edit(row.id)"></po-button>
-      </ng-template>
+  <ng-template p-table-cell-template let-column="abc" let-row="row">
+    <po-button p-label="Edit" (click)="edit(row.id)"></po-button>
+    <po-button [p-label]="row.active ? 'Deactive': 'Active'" class="po-m-1" (click)="Confirm(row.id)"></po-button>
+  </ng-template>
 </po-table>

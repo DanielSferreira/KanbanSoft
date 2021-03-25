@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { LoginModel, TokenModel } from 'src/interfaces/TaskTemplate';
+import { Observable } from 'rxjs';
+import { LoginModel, TokenData, TokenModel } from 'src/interfaces/TaskTemplate';
 import { LoginServiceService } from './../services/login-service.service';
 
 @Injectable({
@@ -8,22 +9,30 @@ import { LoginServiceService } from './../services/login-service.service';
 })
 export class AuthGuardChildService implements CanActivateChild {
 
-  private isAuthenticated: boolean;
-  constructor(private route: Router, private lg: LoginServiceService) {
-    this.isAuthenticated = this.lg.HaveToken();
+  token: TokenData;
+  isValid = false;
+  constructor(private login: LoginServiceService, private router: Router) {
+    this.isValid = this.login.HaveToken()
   }
 
-  public canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!this.isAuthenticated)
-      return this.route.parseUrl('/login');
-    else
+  canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+
+    this.token = this.login.Decode();
+    if (this.token.role === 'admin')
       return true;
-  }
+    else if (this.token.role === 'normal') {
+      return true;
+    }
+    else {
+      this.router.navigate(['./login']);
+      return false;
+    }
 
+  }
   public Activate(x: TokenModel) {
-    this.isAuthenticated = x.status;
+    this.isValid = x.status;
     if (x.status === true) {
-      this.lg.guardTokenInCache(x);
+      this.login.guardTokenInCache(x);
     }
   }
 }

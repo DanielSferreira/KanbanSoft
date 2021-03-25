@@ -1,13 +1,13 @@
 <p class="po-font-subtitle">Pontos Usados: {{user.score}}. Limite: 7 - Disponivel: {{7-user.score}}</p>
 
-<app-coluna-grade [user]="user.id" nome="Para Fazer" [lista]="fazer" (newItemEvent)="mudar($event)"
-    [labels_buttons]="[{Label:'Pegar Tarefa',NovoEstado:1} ]">
+<app-coluna-grade [user]="user.id" nome="To Do" [lista]="fazer" (newItemEvent)="mudar($event)"
+    [labels_buttons]="[{Label:'Take Task',NovoEstado:1} ]">
 </app-coluna-grade>
 
-<app-coluna-grade [user]="user.id" nome="Sendo Feito" [lista]="fazendo" (newItemEvent)="mudar($event)"
-    [labels_buttons]="[{Label:'Devolver',NovoEstado:0},{Label:'Concluir',NovoEstado:2} ]">
+<app-coluna-grade [user]="user.id" nome="Working" [lista]="fazendo" (newItemEvent)="mudar($event)"
+    [labels_buttons]="[{Label:'Give back',NovoEstado:0},{Label:'Concluded',NovoEstado:2} ]">
 </app-coluna-grade>
 
-<app-coluna-grade [user]="user.id" nome="Já concluido" [lista]="concluido" (newItemEvent)="mudar($event)"
-    [labels_buttons]="[{Label:'Alterar',NovoEstado:1}]">
+<app-coluna-grade [user]="user.id" nome="Concluded" [lista]="concluido" (newItemEvent)="mudar($event)"
+    [labels_buttons]="[{Label:'To alter',NovoEstado:1}]">
 </app-coluna-grade>

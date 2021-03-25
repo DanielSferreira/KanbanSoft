@@ -11,11 +11,8 @@ namespace KanbanSoft.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-
         IDataRepository<User> userManager;
         IDataRepository<Task> tasksManager;
-
-
         public UserController(AppDB db)
         {
             userManager = new UserManager(db);
@@ -32,6 +29,7 @@ namespace KanbanSoft.Controllers
                 nick = x.nick,
                 email = x.email,
                 role = x.role,
+                active = x.active,
             });
         }
         [HttpPost]
@@ -53,36 +51,13 @@ namespace KanbanSoft.Controllers
                     nick = user.nick,
                     score = user.score,
                     email = user.email,
-                    role = user.role
+                    role = user.role,
+                    active = user.active
                 });
             else
                 return BadRequest("Houve um erro ao buscar o usuario");
         }
-        [HttpPut("updateScore/{id}/{score}/{type}")]
-        public ActionResult<User> UpdateScore(int id, int score, string type)
-        {
-
-            //novo
-            int tasksUsers = tasksManager.GetAll().Where(x => x.IdUser == id && x.Status == 1).Select(x => x.Level).Sum();
-            System.Console.WriteLine(tasksUsers);
-            //Antigo
-            var user = userManager.GetEntity(id);
-            if (user.score + tasksUsers < 0 || user.score + tasksUsers >= 8)
-                return BadRequest("Não Foi Possível Fazer o Update do score user, pelo fato de ser maior que o permitido ou menor que 0");
-            user.score = tasksUsers;
-            userManager.Update(user);
-            if (user != null)
-                return Ok(new
-                {
-                    id = user.Id,
-                    name = user.name,
-                    nick = user.nick,
-                    score = user.score,
-                    email = user.email
-                });
-            else
-                return BadRequest("Houve um erro ao buscar o usuario");
-        }
+        
         [HttpPut]
         public ActionResult<User> Put([FromBody] User data)
         {
@@ -99,6 +74,32 @@ namespace KanbanSoft.Controllers
             userManager.Update(user);
             return Ok(data);
         }
+        [HttpPut("UpdatePasswordByUser")]
+        public ActionResult<string> UpdatePasswordByUser([FromBody] NewPassword data)
+        {
+            var user = userManager.GetEntity(data.id);
+            if ((data.newPass != null || data.newPass != "") && data.pass == user.pass)
+            {
+                user.pass = Crypt.Encrypt(data.newPass);
+                userManager.Update(user);
+                return Ok("Senha Alterada Com Sucesso");
+            }
+            return BadRequest("Ok");
+        }
+
+        [HttpPut("Deactivate/{id}")]
+        public ActionResult<string> Deactivate(int id)
+        {
+            var user = userManager.GetEntity(id);
+            if(user != null)
+            {
+                user.active = !user.active;
+                userManager.Update(user);
+                return Ok();
+            }
+            return BadRequest("Deu Erro ao desativar");
+        }
+
         [HttpDelete]
         public ActionResult<User> Delete([FromBody] User data)
         {
